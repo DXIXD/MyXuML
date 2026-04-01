@@ -45,13 +45,9 @@ body{
 .letter{background:rgba(253,250,245,0.95);border-radius:24px;padding:40px 35px}
 .letter h3{text-align:center;color:#6b5a55;margin-bottom:25px}
 .letter-content{line-height:2.1;color:#444;font-family:KaiTi,serif;white-space:pre-line}
-
-.music-control{position:fixed;top:20px;right:20px;width:45px;height:45px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,0.1);cursor:pointer;z-index:99;font-size:18px}
 </style>
 </head>
 <body>
-
-<div class="music-control" id="musicBtn">🎵</div>
 
 <div class="header">
     <div class="title">亲爱的，生日快乐 🐶</div>
@@ -129,8 +125,6 @@ XXXX年XX月XX日
     </div>
 </div>
 
-<audio id="bgMusic" loop>
-
 <script>
 // Tab 切换
 const tabs = document.querySelectorAll('.tab-item');
@@ -142,45 +136,6 @@ tabs.forEach(t => {
     document.getElementById(t.dataset.target).classList.add('active');
   }
 });
-
-// 周传雄 - 暖风（稳定可播放版）
-const audio = document.getElementById('bgMusic');
-const btn = document.getElementById('musicBtn');
-audio.src = "https://mir-s.cdn.okecdn.com/preview/mp3/1110411.mp3";
-
-// 轻柔渐入
-function playWithFade() {
-  audio.volume = 0;
-  const promise = audio.play();
-  if (promise) {
-    promise.then(() => {
-      let vol = 0;
-      const interval = setInterval(() => {
-        vol += 0.015;
-        if (vol >= 0.4) {
-          vol = 0.4;
-          clearInterval(interval);
-        }
-        audio.volume = vol;
-      }, 60);
-    }).catch(() => {
-      document.addEventListener('click', playWithFade, { once: true });
-    });
-  }
-}
-
-window.addEventListener('DOMContentLoaded', playWithFade);
-
-// 音乐开关
-btn.onclick = () => {
-  if (audio.paused) {
-    audio.play();
-    btn.textContent = '🎵';
-  } else {
-    audio.pause();
-    btn.textContent = '🔇';
-  }
-};
 </script>
 </body>
 </html>
