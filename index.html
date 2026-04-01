@@ -9,179 +9,99 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+            font-family: "Microsoft YaHei", sans-serif;
         }
-
         body {
             background: linear-gradient(135deg, #fdf2f8, #fef7ff, #f0f9ff);
             min-height: 100vh;
-            color: #333;
             padding-bottom: 60px;
-            position: relative;
-            overflow-x: hidden;
         }
-
-        /* 线条小狗装饰元素 */
-        .dog-decoration {
-            position: fixed;
-            z-index: 1;
-            opacity: 0.8;
-            pointer-events: none;
-        }
-        .dog-left {
-            bottom: 20px;
-            left: 20px;
-            width: 120px;
-        }
-        .dog-right {
-            top: 80px;
-            right: 20px;
-            width: 100px;
-        }
-
-        /* 头部 */
         .header {
             text-align: center;
             padding: 50px 20px 30px;
-            position: relative;
-            z-index: 2;
         }
         .title {
             font-size: 36px;
             color: #e64980;
-            font-weight: 700;
-            margin-bottom: 8px;
+            font-weight: bold;
         }
         .subtitle {
             font-size: 18px;
-            color: #868e96;
+            color: #666;
+            margin-top: 8px;
         }
-
-        /* Tab 切换栏 */
         .tab-wrap {
             max-width: 800px;
-            margin: 0 auto 40px;
+            margin: 0 auto 30px;
             padding: 0 20px;
-            position: relative;
-            z-index: 2;
         }
         .tab-list {
             display: flex;
-            gap: 12px;
-            background: #fff;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            padding: 10px;
+            gap: 10px;
+            background: white;
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
         .tab-item {
             flex: 1;
             text-align: center;
-            padding: 14px 10px;
-            border-radius: 16px;
+            padding: 12px;
+            border-radius: 12px;
             cursor: pointer;
+            color: #777;
             font-weight: 500;
-            color: #868e96;
-            transition: .3s;
         }
         .tab-item.active {
             background: #e64980;
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(230,73,128,0.25);
+            color: white;
         }
-
-        /* 内容面板 */
         .tab-content {
             max-width: 900px;
             margin: 0 auto;
             padding: 0 20px;
-            position: relative;
-            z-index: 2;
         }
         .panel {
             display: none;
-            animation: fadeIn .4s;
         }
         .panel.active {
             display: block;
+            animation: fade 0.5s;
         }
-        @keyframes fadeIn {
+        @keyframes fade {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* 首页面板 */
         .welcome {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 30px;
             text-align: center;
-            padding: 60px 20px;
-            background: #fff;
-            border-radius: 24px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
-        }
-        .welcome::before {
-            content: "🐾";
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 30px;
-            opacity: 0.2;
-        }
-        .welcome::after {
-            content: "🐾";
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            font-size: 30px;
-            opacity: 0.2;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
         }
         .welcome h2 {
-            font-size: 28px;
             color: #e64980;
             margin-bottom: 20px;
         }
         .welcome p {
-            font-size: 17px;
-            line-height: 1.8;
-            color: #555;
+            line-height: 1.9;
+            color: #444;
         }
-
-        /* 照片面板 */
         .photo-panel h3 {
             text-align: center;
-            font-size: 24px;
             color: #e64980;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 24px;
+            gap: 20px;
         }
         .photo-card {
-            background: #fff;
-            border-radius: 20px;
+            background: white;
+            border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-            transition: .3s;
-            position: relative;
-        }
-        .photo-card:hover {
-            transform: translateY(-6px);
-        }
-        .photo-card::before {
-            content: "🐶";
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255,255,255,0.8);
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
         }
         .photo-card img {
             width: 100%;
@@ -189,242 +109,166 @@
             object-fit: cover;
         }
         .photo-info {
-            padding: 16px;
+            padding: 15px;
         }
         .photo-time {
             font-size: 14px;
-            color: #adb5bd;
-            margin-bottom: 4px;
+            color: #999;
         }
         .photo-loc {
             font-size: 16px;
-            color: #495057;
+            color: #333;
             font-weight: 500;
+            margin-top: 4px;
         }
-
-        /* 手写信面板 */
         .letter {
             background: #fffaf5;
-            border-radius: 24px;
-            padding: 40px 36px;
-            position: relative;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
-        }
-        .letter::before {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            border: 1px solid #f7d3c0;
-            border-radius: 12px;
-            pointer-events: none;
-        }
-        .letter::after {
-            content: "🐾";
-            position: absolute;
-            bottom: 25px;
-            right: 30px;
-            font-size: 24px;
-            opacity: 0.3;
+            border-radius: 20px;
+            padding: 40px 35px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
         }
         .letter h3 {
             text-align: center;
-            font-size: 24px;
             color: #c94a6b;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         .letter-content {
-            font-size: 17px;
-            line-height: 2.2;
+            line-height: 2.1;
             color: #5a4339;
             font-family: KaiTi, serif;
             white-space: pre-line;
         }
-
-        /* 音乐控制 */
         .music-control {
             position: fixed;
             top: 20px;
             right: 20px;
-            width: 48px;
-            height: 48px;
-            background: #fff;
+            width: 45px;
+            height: 45px;
+            background: white;
             border-radius: 50%;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             cursor: pointer;
-            z-index: 999;
-            font-size: 20px;
-            transition: .3s;
+            z-index: 99;
+            font-size: 18px;
         }
-        .music-control:hover {
-            transform: scale(1.1);
+        .dog-icon {
+            color: #e64980;
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
-    <!-- 线条小狗装饰 -->
-    <img src="https://img0.baidu.com/it/u=3901193090,3091193090&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500" 
-         alt="线条小狗" class="dog-decoration dog-left">
-    <img src="https://img2.baidu.com/it/u=1234567890,1234567890&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500" 
-         alt="线条小狗" class="dog-decoration dog-right">
 
-    <!-- 音乐控制按钮 -->
-    <div class="music-control" id="musicBtn">🎵</div>
+<div class="music-control" id="musicBtn">🎵</div>
 
-    <!-- 背景音乐：周传雄 - 暖风（使用稳定CDN） -->
-    <audio id="bgMusic" loop>
-        <source src="https://music.163.com/song/media/outer/url?id=167915.mp3" type="audio/mpeg">
-        您的浏览器不支持音频播放
-    
+<div class="header">
+    <div class="title">亲爱的，生日快乐 <span class="dog-icon">🐶</span></div>
+    <div class="subtitle">这是只属于我们的纪念 🎂</div>
+</div>
 
-    <!-- 头部 -->
-    <div class="header">
-        <div class="title">亲爱的，生日快乐</div>
-        <div class="subtitle">这是只属于我们的纪念 🎂</div>
+<div class="tab-wrap">
+    <div class="tab-list">
+        <div class="tab-item active" data-target="a">首页祝福</div>
+        <div class="tab-item" data-target="b">时光照片</div>
+        <div class="tab-item" data-target="c">手写信</div>
     </div>
+</div>
 
-    <!-- Tab 切换栏 -->
-    <div class="tab-wrap">
-        <div class="tab-list">
-            <div class="tab-item active" data-target="panel-welcome">首页祝福</div>
-            <div class="tab-item" data-target="panel-photo">时光照片</div>
-            <div class="tab-item" data-target="panel-letter">手写信</div>
+<div class="tab-content">
+    <div class="panel active" id="a">
+        <div class="welcome">
+            <h2>✨ 生日快乐，我的女孩 ✨</h2>
+            <p>世界那么大，很幸运能遇见你。<br>每一个平凡的日子，因为有你而闪闪发光。<br>愿你永远被爱，永远快乐，岁岁平安，年年有我。</p>
         </div>
     </div>
 
-    <!-- 内容面板 -->
-    <div class="tab-content">
-        <!-- 首页 -->
-        <div class="panel active" id="panel-welcome">
-            <div class="welcome">
-                <h2>✨ 生日快乐，我的女孩 ✨</h2>
-                <p>
-                    世界那么大，很幸运能遇见你。<br/>
-                    每一个平凡的日子，因为有你而变得闪闪发光。<br/>
-                    愿你永远被爱包围，永远天真快乐，岁岁平安，年年有我。
-                </p>
-            </div>
-        </div>
-
-        <!-- 照片 -->
-        <div class="panel" id="panel-photo">
-            <div class="photo-panel">
-                <h3>📷 我们的回忆 · 时间与地点</h3>
-                <div class="photo-grid">
-                    <div class="photo-card">
-                        <img src="https://picsum.photos/600/400?random=1" alt="我们的照片">
-                        <div class="photo-info">
-                            <div class="photo-time">2025.02.14</div>
-                            <div class="photo-loc">上海 · 外滩</div>
-                        </div>
+    <div class="panel" id="b">
+        <div class="photo-panel">
+            <h3>📷 我们的回忆 · 时间与地点</h3>
+            <div class="photo-grid">
+                <div class="photo-card">
+                    <img src="https://picsum.photos/600/400?random=1">
+                    <div class="photo-info">
+                        <div class="photo-time">2025.02.14</div>
+                        <div class="photo-loc">上海 · 外滩</div>
                     </div>
-                    <div class="photo-card">
-                        <img src="https://picsum.photos/600/400?random=2" alt="我们的照片">
-                        <div class="photo-info">
-                            <div class="photo-time">2025.05.20</div>
-                            <div class="photo-loc">杭州 · 西湖</div>
-                        </div>
+                </div>
+                <div class="photo-card">
+                    <img src="https://picsum.photos/600/400?random=2">
+                    <div class="photo-info">
+                        <div class="photo-time">2025.05.20</div>
+                        <div class="photo-loc">杭州 · 西湖</div>
                     </div>
-                    <div class="photo-card">
-                        <img src="https://picsum.photos/600/400?random=3" alt="我们的照片">
-                        <div class="photo-info">
-                            <div class="photo-time">2025.08.09</div>
-                            <div class="photo-loc">我们的小家</div>
-                        </div>
-                    </div>
-                    <div class="photo-card">
-                        <img src="https://picsum.photos/600/400?random=4" alt="我们的照片">
-                        <div class="photo-info">
-                            <div class="photo-time">2025.10.01</div>
-                            <div class="photo-loc">北京 · 天安门</div>
-                        </div>
+                </div>
+                <div class="photo-card">
+                    <img src="https://picsum.photos/600/400?random=3">
+                    <div class="photo-info">
+                        <div class="photo-time">2025.08.09</div>
+                        <div class="photo-loc">我们的小家</div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- 手写信 -->
-        <div class="panel" id="panel-letter">
-            <div class="letter">
-                <h3>✍️ 给你的手写信</h3>
-                <div class="letter-content">
+    <div class="panel" id="c">
+        <div class="letter">
+            <h3>✍️ 给你的手写信</h3>
+            <div class="letter-content">
 我最亲爱的宝贝：
 
 生日快乐。
-
 这是我陪你度过的又一个生日，
-回头看看，我们一起走过了那么多路，
-看过那么多风景，留下了数不清的温柔瞬间。
+和你在一起的每一刻都无比珍贵。
 
-我喜欢和你在一起的每一刻，
-喜欢你笑起来的样子，
-喜欢你认真生活的样子，
-也喜欢被你依赖、被你爱着的样子。
+我喜欢你的笑容，喜欢你的温柔，
+喜欢你所有的样子。
 
-未来很远，路还很长，
-我想一直牵着你的手，
-陪你看遍四季，陪你岁岁年年。
+未来的路，我会一直牵着你的手，
+陪你岁岁年年，爱你朝朝暮暮。
 
-愿你永远平安、永远快乐、永远被偏爱。
-我爱你，不止今天，而是朝朝暮暮，岁岁年年。
+愿你永远幸福，永远被偏爱。
+我爱你。
 
 永远爱你的人
 XXXX年XX月XX日
-                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        // Tab 切换逻辑
-        const tabs = document.querySelectorAll('.tab-item');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // 移除所有active
-                document.querySelectorAll('.tab-item').forEach(i => i.classList.remove('active'));
-                document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-                // 给当前点击的加active
-                tab.classList.add('active');
-                const target = tab.dataset.target;
-                document.getElementById(target).classList.add('active');
-            });
-        });
+<audio id="bgMusic" loop></audio>
 
-        // 音乐控制逻辑
-        const music = document.getElementById('bgMusic');
-        const btn = document.getElementById('musicBtn');
-        let isPlay = false;
+<script>
+    // TAB切换
+    const tabs = document.querySelectorAll('.tab-item');
+    tabs.forEach(t => {
+        t.onclick = () => {
+            tabs.forEach(x => x.classList.remove('active'));
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            t.classList.add('active');
+            document.getElementById(t.dataset.target).classList.add('active');
+        }
+    });
 
-        // 首次点击页面任意位置播放音乐（解决浏览器自动播放限制）
-        document.body.addEventListener('click', function firstPlay() {
-            music.play().then(() => {
-                isPlay = true;
-                btn.textContent = '🎵';
-            }).catch(err => {
-                console.log('音乐播放失败:', err);
-            });
-            document.body.removeEventListener('click', firstPlay);
-        }, { once: true });
+    // 音乐
+    const msc = document.getElementById('bgMusic');
+    const btn = document.getElementById('musicBtn');
+    let p = false;
+    msc.src = "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Chad_Crouch/Movement/Peace_Up.mp3";
 
-        // 按钮手动控制
-        btn.onclick = () => {
-            if (isPlay) {
-                music.pause();
-                btn.textContent = '🔇';
-            } else {
-                music.play().then(() => {
-                    btn.textContent = '🎵';
-                }).catch(err => {
-                    console.log('音乐播放失败:', err);
-                });
-            }
-            isPlay = !isPlay;
-        };
-    </script>
+    document.body.onclick = () => {
+        if(!p){msc.play(); p=true; btn.textContent="🎵";}
+    };
+
+    btn.onclick = () => {
+        if(msc.paused){msc.play(); btn.textContent="🎵";}
+        else{msc.pause(); btn.textContent="🔇";}
+    };
+</script>
+
 </body>
 </html>
