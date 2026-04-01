@@ -7,8 +7,8 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif}
 body{
-    background:#f0f4fa;
-    background-image:url("https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1887");
+    background:#f8f9ff;
+    background-image:url('https://images.unsplash.com/photo-1574634525232-5c2371a6c211?q=80&w=1920');
     background-size:cover;
     background-position:center;
     background-attachment:fixed;
@@ -17,29 +17,36 @@ body{
     padding-bottom:60px;
 }
 .header{text-align:center;padding:50px 20px 30px}
-.title{font-size:36px;color:#4a6b8f;font-weight:bold}
+.title{font-size:36px;color:#4a5c7f;font-weight:bold}
 .subtitle{font-size:18px;color:#555;margin-top:8px}
+
+/* 横向 Tab 恢复原样 */
 .tab-wrap{max-width:800px;margin:0 auto 30px;padding:0 20px}
-.tab-list{display:flex;gap:10px;background:rgba(255,255,255,0.9);border-radius:16px;padding:8px}
-.tab-item{flex:1;text-align:center;padding:12px;border-radius:12px;cursor:pointer;color:#555}
-.tab-item.active{background:#4a6b8f;color:#fff}
+.tab-list{display:flex;gap:12px;background:rgba(255,255,255,0.9);border-radius:20px;padding:10px}
+.tab-item{flex:1;text-align:center;padding:14px 10px;border-radius:16px;cursor:pointer;color:#868e96;font-weight:500}
+.tab-item.active{background:#4a5c7f;color:#fff}
+
 .tab-content{max-width:900px;margin:0 auto;padding:0 20px}
 .panel{display:none}
 .panel.active{display:block;animation:fade .5s}
 @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.welcome{background:rgba(255,255,255,0.93);border-radius:20px;padding:50px 30px;text-align:center}
-.welcome h2{color:#4a6b8f;margin-bottom:20px}
+
+.welcome{background:rgba(255,255,255,0.93);border-radius:24px;padding:50px 30px;text-align:center}
+.welcome h2{color:#4a5c7f;margin-bottom:20px}
 .welcome p{line-height:1.9;color:#333}
-.photo-panel h3{text-align:center;color:#4a6b8f;margin-bottom:25px}
+
+.photo-panel h3{text-align:center;color:#4a5c7f;margin-bottom:25px}
 .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
 .photo-card{background:rgba(255,255,255,0.95);border-radius:18px;overflow:hidden}
 .photo-card img{width:100%;height:220px;object-fit:cover}
 .photo-info{padding:15px}
 .photo-time{font-size:14px;color:#888}
 .photo-loc{font-size:16px;color:#333;font-weight:500;margin-top:4px}
-.letter{background:rgba(253,250,245,0.95);border-radius:20px;padding:40px 35px}
+
+.letter{background:rgba(253,250,245,0.95);border-radius:24px;padding:40px 35px}
 .letter h3{text-align:center;color:#6b5a55;margin-bottom:25px}
 .letter-content{line-height:2.1;color:#444;font-family:KaiTi,serif;white-space:pre-line}
+
 .music-control{position:fixed;top:20px;right:20px;width:45px;height:45px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,0.1);cursor:pointer;z-index:99;font-size:18px}
 </style>
 </head>
@@ -52,10 +59,13 @@ body{
     <div class="subtitle">这是只属于我们的纪念 🎂</div>
 </div>
 
+<!-- 横向 Tab -->
 <div class="tab-wrap">
-    <div class="tab-item active" data-target="a">首页祝福</div>
-    <div class="tab-item" data-target="b">时光照片</div>
-    <div class="tab-item" data-target="c">手写信</div>
+    <div class="tab-list">
+        <div class="tab-item active" data-target="a">首页祝福</div>
+        <div class="tab-item" data-target="b">时光照片</div>
+        <div class="tab-item" data-target="c">手写信</div>
+    </div>
 </div>
 
 <div class="tab-content">
@@ -124,29 +134,36 @@ XXXX年XX月XX日
 <audio id="bgMusic" loop>
 
 <script>
-// Tab
-const items = document.querySelectorAll('.tab-item');
-items.forEach(i=>{
-    i.onclick=()=>{
-        items.forEach(x=>x.classList.remove('active'));
+const tabs = document.querySelectorAll('.tab-item');
+tabs.forEach(t=>{
+    t.onclick=()=>{
+        tabs.forEach(x=>x.classList.remove('active'));
         document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-        i.classList.add('active');
-        document.getElementById(i.dataset.target).classList.add('active');
+        t.classList.add('active');
+        document.getElementById(t.dataset.target).classList.add('active');
     }
 });
 
-// 音乐
-const a = document.getElementById('bgMusic');
+const audio = document.getElementById('bgMusic');
 const btn = document.getElementById('musicBtn');
-a.src = 'https://files.catbox.moe/8w79z2.mp3';
+audio.src = 'https://files.catbox.moe/8w79z2.mp3';
 
-let hasPlay = false;
-document.body.onclick = ()=>{
-    if(!hasPlay){a.play(); hasPlay=true;}
-};
-btn.onclick = ()=>{
-    if(a.paused){a.play(); btn.textContent='🎵'}
-    else{a.pause(); btn.textContent='🔇'}
+let played = false;
+document.body.addEventListener('click', () => {
+    if(!played){
+        audio.play().catch(()=>{});
+        played = true;
+    }
+}, { once: true });
+
+btn.onclick = () => {
+    if(audio.paused){
+        audio.play();
+        btn.textContent = '🎵';
+    }else{
+        audio.pause();
+        btn.textContent = '🔇';
+    }
 };
 </script>
 </body>
