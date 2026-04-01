@@ -132,7 +132,7 @@ XXXX年XX月XX日
 <audio id="bgMusic" loop>
 
 <script>
-// Tab切换
+// Tab 切换
 const tabs = document.querySelectorAll('.tab-item');
 tabs.forEach(t => {
   t.onclick = () => {
@@ -143,7 +143,7 @@ tabs.forEach(t => {
   }
 });
 
-// 音乐自动播放 + 音量渐入
+// 音乐自动播放 + 超自然缓动渐入
 const audio = document.getElementById('bgMusic');
 const btn = document.getElementById('musicBtn');
 audio.src = 'https://files.catbox.moe/8w79z2.mp3';
@@ -152,16 +152,28 @@ let hasPlayed = false;
 
 function fadeInAudio() {
   audio.volume = 0;
-  audio.play();
-  let vol = 0;
-  const interval = setInterval(() => {
-    vol += 0.02;
-    if (vol >= 1) {
-      vol = 1;
-      clearInterval(interval);
+  audio.play().catch(() => {});
+
+  const duration = 3000;
+  const start = performance.now();
+
+  function fade() {
+    const elapsed = performance.now() - start;
+    let progress = Math.min(elapsed / duration, 1);
+
+    // 自然缓动曲线：慢入慢出，最柔和
+    progress = progress < 0.5
+      ? 4 * progress * progress * progress
+      : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+    audio.volume = progress;
+
+    if (progress < 1) {
+      requestAnimationFrame(fade);
     }
-    audio.volume = vol;
-  }, 100);
+  }
+
+  fade();
 }
 
 document.body.addEventListener('click', () => {
