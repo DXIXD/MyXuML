@@ -7,7 +7,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif}
 body{
-    background:#f8f9ff;
+    background:#f0f4fd;
     background-image:url('https://images.unsplash.com/photo-1574634525232-5c2371a6c211?q=80&w=1920');
     background-size:cover;
     background-position:center;
@@ -20,7 +20,6 @@ body{
 .title{font-size:36px;color:#4a5c7f;font-weight:bold}
 .subtitle{font-size:18px;color:#555;margin-top:8px}
 
-/* 横向 Tab 恢复原样 */
 .tab-wrap{max-width:800px;margin:0 auto 30px;padding:0 20px}
 .tab-list{display:flex;gap:12px;background:rgba(255,255,255,0.9);border-radius:20px;padding:10px}
 .tab-item{flex:1;text-align:center;padding:14px 10px;border-radius:16px;cursor:pointer;color:#868e96;font-weight:500}
@@ -59,7 +58,6 @@ body{
     <div class="subtitle">这是只属于我们的纪念 🎂</div>
 </div>
 
-<!-- 横向 Tab -->
 <div class="tab-wrap">
     <div class="tab-list">
         <div class="tab-item active" data-target="a">首页祝福</div>
@@ -134,36 +132,53 @@ XXXX年XX月XX日
 <audio id="bgMusic" loop>
 
 <script>
+// Tab切换
 const tabs = document.querySelectorAll('.tab-item');
-tabs.forEach(t=>{
-    t.onclick=()=>{
-        tabs.forEach(x=>x.classList.remove('active'));
-        document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-        t.classList.add('active');
-        document.getElementById(t.dataset.target).classList.add('active');
-    }
+tabs.forEach(t => {
+  t.onclick = () => {
+    tabs.forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.target).classList.add('active');
+  }
 });
 
+// 音乐自动播放 + 音量渐入
 const audio = document.getElementById('bgMusic');
 const btn = document.getElementById('musicBtn');
 audio.src = 'https://files.catbox.moe/8w79z2.mp3';
 
-let played = false;
-document.body.addEventListener('click', () => {
-    if(!played){
-        audio.play().catch(()=>{});
-        played = true;
+let hasPlayed = false;
+
+function fadeInAudio() {
+  audio.volume = 0;
+  audio.play();
+  let vol = 0;
+  const interval = setInterval(() => {
+    vol += 0.02;
+    if (vol >= 1) {
+      vol = 1;
+      clearInterval(interval);
     }
+    audio.volume = vol;
+  }, 100);
+}
+
+document.body.addEventListener('click', () => {
+  if (!hasPlayed) {
+    fadeInAudio();
+    hasPlayed = true;
+  }
 }, { once: true });
 
 btn.onclick = () => {
-    if(audio.paused){
-        audio.play();
-        btn.textContent = '🎵';
-    }else{
-        audio.pause();
-        btn.textContent = '🔇';
-    }
+  if (audio.paused) {
+    audio.play();
+    btn.textContent = '🎵';
+  } else {
+    audio.pause();
+    btn.textContent = '🔇';
+  }
 };
 </script>
 </body>
