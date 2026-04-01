@@ -125,17 +125,46 @@ XXXX年XX月XX日
     </div>
 </div>
 
+<audio id="bgMusic" loop>
+
 <script>
-// Tab 切换
+// Tab切换
 const tabs = document.querySelectorAll('.tab-item');
 tabs.forEach(t => {
   t.onclick = () => {
-    tabs.forEach(x => x.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    tabs.forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
     t.classList.add('active');
     document.getElementById(t.dataset.target).classList.add('active');
   }
 });
+
+// 生日快乐纯音乐 · 稳定可播放
+const audio = document.getElementById('bgMusic');
+audio.src = "https://cdn.bensound.com/bensound-music/bensound-happybirthday.mp3";
+
+// 自动渐入播放
+function playFadeIn() {
+  audio.volume = 0;
+  const p = audio.play();
+  if (p) {
+    p.then(() => {
+      let vol = 0;
+      const itv = setInterval(() => {
+        vol += 0.015;
+        if (vol >= 0.4) {
+          vol = 0.4;
+          clearInterval(itv);
+        }
+        audio.volume = vol;
+      }, 50);
+    }).catch(() => {
+      document.addEventListener('click', playFadeIn, { once: true });
+    });
+  }
+}
+
+window.addEventListener('DOMContentLoaded', playFadeIn);
 </script>
 </body>
 </html>
