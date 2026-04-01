@@ -1,300 +1,196 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>致我最爱的宝贝 · 生日快乐</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>致我最爱的你 · 生日快乐</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif}
+body{background:linear-gradient(135deg, #fdf2f8, #fef7ff, #f0f9ff);min-height:100vh;color:#333;padding-bottom:60px}
 
-        /* 全局背景 & 字体 */
-        body {
-            font-family: "Microsoft YaHei", sans-serif;
-            background: linear-gradient(135deg, #ffd6e0, #f9d7ff, #e2f0fb);
-            min-height: 100vh;
-            overflow-x: hidden;
-            color: #333;
-        }
+/* 头部 */
+.header{text-align:center;padding:50px 20px 30px}
+.title{font-size:36px;color:#e64980;font-weight:700;margin-bottom:8px}
+.subtitle{font-size:18px;color:#868e96}
 
-        /* 开场加载动画 */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            z-index: 9999;
-            animation: fadeOut 1s forwards 3s;
-        }
+/* Tab 切换栏 */
+.tab-wrap{max-width:800px;margin:0 auto 40px;padding:0 20px}
+.tab-list{display:flex;gap:12px;background:#fff;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.05);padding:10px}
+.tab-item{flex:1;text-align:center;padding:14px 10px;border-radius:16px;cursor:pointer;font-weight:500;color:#868e96;transition:.3s}
+.tab-item.active{background:#e64980;color:#fff;box-shadow:0 4px 12px rgba(230,73,128,0.25)}
 
-        @keyframes fadeOut {
-            to { opacity: 0; visibility: hidden; }
-        }
+/* 内容面板 */
+.tab-content{max-width:900px;margin:0 auto;padding:0 20px}
+.panel{display:none;animation:fadeIn .4s}
+.panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-        .loader-text {
-            font-size: 22px;
-            color: #ff5e8f;
-            margin-top: 20px;
-        }
+/* 首页面板 */
+.welcome{text-align:center;padding:60px 20px;background:#fff;border-radius:24px;box-shadow:0 8px 30px rgba(0,0,0,0.05)}
+.welcome h2{font-size:28px;color:#e64980;margin-bottom:20px}
+.welcome p{font-size:17px;line-height:1.8;color:#555}
 
-        /* 头部标题 */
-        .header {
-            text-align: center;
-            padding: 60px 20px 30px;
-            animation: fadeIn 2s;
-        }
+/* 照片面板 */
+.photo-panel h3{text-align:center;font-size:24px;color:#e64980;margin-bottom:30px}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
+.photo-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,0.06);transition:.3s}
+.photo-card:hover{transform:translateY(-6px)}
+.photo-card img{width:100%;height:220px;object-fit:cover}
+.photo-info{padding:16px}
+.photo-time{font-size:14px;color:#adb5bd;margin-bottom:4px}
+.photo-loc{font-size:16px;color:#495057;font-weight:500}
 
-        .title {
-            font-size: 42px;
-            color: #ff4a7e;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+/* 手写信面板 */
+.letter{background:#fffaf5;border-radius:24px;padding:40px 36px;position:relative;box-shadow:0 8px 30px rgba(0,0,0,0.05)}
+.letter::before{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid #f7d3c0;border-radius:12px;pointer-events:none}
+.letter h3{text-align:center;font-size:24px;color:#c94a6b;margin-bottom:30px}
+.letter-content{font-size:17px;line-height:2.2;color:#5a4339;font-family:KaiTi,serif;white-space:pre-line}
 
-        .subtitle {
-            font-size: 20px;
-            color: #666;
-        }
-
-        /* 照片区域 */
-        .photo-section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 28px;
-            color: #ff4a7e;
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: "";
-            width: 80px;
-            height: 3px;
-            background: #ff4a7e;
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* 照片卡片 */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .photo-card {
-            background: white;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .photo-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-        }
-
-        .photo-card img {
-            width: 100%;
-            height: 240px;
-            object-fit: cover;
-        }
-
-        .photo-info {
-            padding: 15px;
-        }
-
-        .photo-time {
-            font-size: 14px;
-            color: #999;
-            margin-bottom: 5px;
-        }
-
-        .photo-loc {
-            font-size: 16px;
-            color: #555;
-            font-weight: 500;
-        }
-
-        /* 照片弹窗 */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 999;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal img {
-            max-width: 90%;
-            max-height: 90vh;
-            border-radius: 10px;
-        }
-
-        /* 手写信区域 */
-        .letter-section {
-            max-width: 800px;
-            margin: 60px auto;
-            padding: 50px 30px;
-            background: #fffaf5;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        .letter-section::before {
-            content: "";
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
-            bottom: 15px;
-            border: 1px solid #f7d3c0;
-            border-radius: 10px;
-            pointer-events: none;
-        }
-
-        .letter-text {
-            font-size: 18px;
-            line-height: 2;
-            color: #5a4339;
-            white-space: pre-line;
-            font-family: "KaiTi", serif;
-        }
-
-        /* 动画 */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fade-in {
-            animation: fadeIn 1.5s forwards;
-        }
-    </style>
+/* 音乐控制 */
+.music-control{position:fixed;top:20px;right:20px;width:40px;height:40px;background:#fff;border-radius:50%;box-shadow:0 2px 10px rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:99}
+</style>
 </head>
+
 <body>
 
-<!-- 开场动画 -->
-<div class="loader">
-    <div class="loader-text">正在为你打开专属生日纪念 🎂</div>
-</div>
+<!-- 音乐开关 -->
+<div class="music-control" id="musicBtn">🎵</div>
 
-<!-- 头部 -->
+<!-- 背景音乐 - 周传雄 暖风 -->
+<audio id="bgMusic" loop autoplay>
+  <source src="https://web-dl.ieasfun.com/music/20250920/nuanfeng.mp3" type="audio/mpeg">
+
+
 <div class="header">
-    <div class="title">亲爱的，生日快乐</div>
-    <div class="subtitle">这是只属于你的专属纪念网站</div>
+  <div class="title">亲爱的，生日快乐</div>
+  <div class="subtitle">这是只属于我们的纪念 🎂</div>
 </div>
 
-<!-- 照片区域（带时间 + 地点） -->
-<div class="photo-section">
-    <div class="section-title">我们的时光记忆 ✨</div>
-    <div class="photo-grid">
-        <!-- 照片1 -->
-        <div class="photo-card" onclick="openModal(this)">
-            <img src="https://picsum.photos/600/400?random=1" alt="照片">
-            <div class="photo-info">
-                <div class="photo-time">2025.02.14</div>
-                <div class="photo-loc">上海 · 外滩</div>
-            </div>
-        </div>
-        <!-- 照片2 -->
-        <div class="photo-card" onclick="openModal(this)">
-            <img src="https://picsum.photos/600/400?random=2" alt="照片">
-            <div class="photo-info">
-                <div class="photo-time">2025.05.20</div>
-                <div class="photo-loc">杭州 · 西湖</div>
-            </div>
-        </div>
-        <!-- 照片3 -->
-        <div class="photo-card" onclick="openModal(this)">
-            <img src="https://picsum.photos/600/400?random=3" alt="照片">
-            <div class="photo-info">
-                <div class="photo-time">2025.08.09</div>
-                <div class="photo-loc">我们的小家</div>
-            </div>
-        </div>
-        <!-- 照片4 -->
-        <div class="photo-card" onclick="openModal(this)">
-            <img src="https://picsum.photos/600/400?random=4" alt="照片">
-            <div class="photo-info">
-                <div class="photo-time">2025.10.01</div>
-                <div class="photo-loc">北京 · 天安门</div>
-            </div>
-        </div>
+<div class="tab-wrap">
+  <div class="tab-list">
+    <div class="tab-item active" data-target="panel-welcome">首页祝福</div>
+    <div class="tab-item" data-target="panel-photo">时光照片</div>
+    <div class="tab-item" data-target="panel-letter">手写信</div>
+  </div>
+</div>
+
+<div class="tab-content">
+  <!-- 首页 -->
+  <div class="panel active" id="panel-welcome">
+    <div class="welcome">
+      <h2>✨ 生日快乐，我的女孩 ✨</h2>
+      <p>
+        世界那么大，很幸运能遇见你。<br/>
+        每一个平凡的日子，因为有你而变得闪闪发光。<br/>
+        愿你永远被爱包围，永远天真快乐，岁岁平安，年年有我。
+      </p>
     </div>
-</div>
+  </div>
 
-<!-- 照片弹窗 -->
-<div class="modal" id="modal" onclick="closeModal()">
-    <img id="modalImg" src="">
-</div>
+  <!-- 照片 -->
+  <div class="panel" id="panel-photo">
+    <div class="photo-panel">
+      <h3>📷 我们的回忆 · 时间与地点</h3>
+      <div class="photo-grid">
+        <div class="photo-card">
+          <img src="https://picsum.photos/600/400?random=1" alt="">
+          <div class="photo-info">
+            <div class="photo-time">2025.02.14</div>
+            <div class="photo-loc">上海 · 外滩</div>
+          </div>
+        </div>
+        <div class="photo-card">
+          <img src="https://picsum.photos/600/400?random=2" alt="">
+          <div class="photo-info">
+            <div class="photo-time">2025.05.20</div>
+            <div class="photo-loc">杭州 · 西湖</div>
+          </div>
+        </div>
+        <div class="photo-card">
+          <img src="https://picsum.photos/600/400?random=3" alt="">
+          <div class="photo-info">
+            <div class="photo-time">2025.08.09</div>
+            <div class="photo-loc">我们的小家</div>
+          </div>
+        </div>
+        <div class="photo-card">
+          <img src="https://picsum.photos/600/400?random=4" alt="">
+          <div class="photo-info">
+            <div class="photo-time">2025.10.01</div>
+            <div class="photo-loc">北京 · 天安门</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<!-- 手写信区域 -->
-<div class="letter-section fade-in">
-    <div class="section-title">给你的手写信 ✍️</div>
-    <div class="letter-text">
+  <!-- 手写信 -->
+  <div class="panel" id="panel-letter">
+    <div class="letter">
+      <h3>✍️ 给你的手写信</h3>
+      <div class="letter-content">
 我最亲爱的宝贝：
 
-生日快乐！🎂
-这是我陪你度过的又一个生日，能与你相爱，是我这辈子最幸运的事。
+生日快乐。
 
-和你在一起的每一天都闪闪发光，
-一起走过的路、一起看过的风景、一起吃过的饭、一起拥抱的夜晚，
-全都刻在我心里，成为我最珍贵的宝藏。
+这是我陪你度过的又一个生日，
+回头看看，我们一起走过了那么多路，
+看过那么多风景，留下了数不清的温柔瞬间。
 
-你温柔、可爱、善良、坚强，
-你是我疲惫生活里的光，是我所有温柔的归宿。
+我喜欢和你在一起的每一刻，
+喜欢你笑起来的样子，
+喜欢你认真生活的样子，
+也喜欢被你依赖、被你爱着的样子。
 
-未来的路还很长，
-我会一直牵着你的手，
-陪你岁岁年年，爱你朝朝暮暮。
+未来很远，路还很长，
+我想一直牵着你的手，
+陪你看遍四季，陪你岁岁年年。
 
-愿你永远被幸福包围，
-愿你永远做最快乐的小女孩。
-
-我爱你，不止今天，而是每一天。
+愿你永远平安、永远快乐、永远被偏爱。
+我爱你，不止今天，而是朝朝暮暮，岁岁年年。
 
 永远爱你的人
 XXXX年XX月XX日
+      </div>
     </div>
+  </div>
 </div>
 
 <script>
-    // 照片弹窗
-    function openModal(el) {
-        const modal = document.getElementById('modal');
-        const modalImg = document.getElementById('modalImg');
-        modalImg.src = el.querySelector('img').src;
-        modal.style.display = 'flex';
-    }
+  // Tab切换
+  const tabs = document.querySelectorAll('.tab-item')
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab-item').forEach(i => i.classList.remove('active'))
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'))
+      tab.classList.add('active')
+      const target = tab.dataset.target
+      document.getElementById(target).classList.add('active')
+    })
+  })
 
-    function closeModal() {
-        document.getElementById('modal').style.display = 'none';
+  // 音乐控制
+  const music = document.getElementById('bgMusic')
+  const btn = document.getElementById('musicBtn')
+  let isPlay = true
+
+  // 尝试自动播放
+  window.addEventListener('load', () => {
+    music.play().catch(err => {
+      console.log('需交互后播放')
+    })
+  })
+
+  btn.onclick = () => {
+    if(isPlay){
+      music.pause()
+      btn.textContent = '🔇'
+    }else{
+      music.play()
+      btn.textContent = '🎵'
     }
+    isPlay = !isPlay
+  }
 </script>
 </body>
 </html>
