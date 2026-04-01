@@ -143,46 +143,35 @@ tabs.forEach(t => {
   }
 });
 
-// 音乐：模拟“真正自动播放” + 超自然渐入
+// 轻柔纯音乐（稳定不死链）
 const audio = document.getElementById('bgMusic');
 const btn = document.getElementById('musicBtn');
-audio.src = 'https://files.catbox.moe/8w79z2.mp3';
+audio.src = "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Chad_Crouch/Movement/Peace_Up.mp3";
 
-// 一进页面就自动触发播放（浏览器规则下最接近真自动播放）
-function autoPlayFadeIn() {
+// 自然渐入
+function autoPlay() {
   audio.volume = 0;
-  const playPromise = audio.play();
-
-  if (playPromise !== undefined) {
-    playPromise.then(() => {
-      const duration = 3000;
-      const start = performance.now();
-
-      function fade() {
-        const elapsed = performance.now() - start;
-        let progress = Math.min(elapsed / duration, 1);
-        progress = progress < 0.5
-          ? 4 * progress * progress * progress
-          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-        audio.volume = progress;
-        if (progress < 1) requestAnimationFrame(fade);
-      }
-      fade();
+  const p = audio.play();
+  if (p) {
+    p.then(() => {
+      let vol = 0;
+      const itv = setInterval(() => {
+        vol += 0.015;
+        if (vol >= 0.4) {
+          vol = 0.4;
+          clearInterval(itv);
+        }
+        audio.volume = vol;
+      }, 50);
     }).catch(() => {
-      // 浏览器拦截时，自动监听一次触摸/点击就播放
-      document.addEventListener('click', tryPlay, { once: true });
-      document.addEventListener('touchstart', tryPlay, { once: true });
-      function tryPlay() {
-        autoPlayFadeIn();
-      }
+      document.addEventListener('click', autoPlay, { once: true });
     });
   }
 }
 
-// 页面加载完立刻执行
-window.addEventListener('DOMContentLoaded', autoPlayFadeIn);
+window.addEventListener('DOMContentLoaded', autoPlay);
 
-// 手动开关
+// 开关
 btn.onclick = () => {
   if (audio.paused) {
     audio.play();
