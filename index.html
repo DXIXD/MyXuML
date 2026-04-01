@@ -143,46 +143,46 @@ tabs.forEach(t => {
   }
 });
 
-// 音乐自动播放 + 超自然缓动渐入
+// 音乐：模拟“真正自动播放” + 超自然渐入
 const audio = document.getElementById('bgMusic');
 const btn = document.getElementById('musicBtn');
 audio.src = 'https://files.catbox.moe/8w79z2.mp3';
 
-let hasPlayed = false;
-
-function fadeInAudio() {
+// 一进页面就自动触发播放（浏览器规则下最接近真自动播放）
+function autoPlayFadeIn() {
   audio.volume = 0;
-  audio.play().catch(() => {});
+  const playPromise = audio.play();
 
-  const duration = 3000;
-  const start = performance.now();
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      const duration = 3000;
+      const start = performance.now();
 
-  function fade() {
-    const elapsed = performance.now() - start;
-    let progress = Math.min(elapsed / duration, 1);
-
-    // 自然缓动曲线：慢入慢出，最柔和
-    progress = progress < 0.5
-      ? 4 * progress * progress * progress
-      : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-
-    audio.volume = progress;
-
-    if (progress < 1) {
-      requestAnimationFrame(fade);
-    }
+      function fade() {
+        const elapsed = performance.now() - start;
+        let progress = Math.min(elapsed / duration, 1);
+        progress = progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        audio.volume = progress;
+        if (progress < 1) requestAnimationFrame(fade);
+      }
+      fade();
+    }).catch(() => {
+      // 浏览器拦截时，自动监听一次触摸/点击就播放
+      document.addEventListener('click', tryPlay, { once: true });
+      document.addEventListener('touchstart', tryPlay, { once: true });
+      function tryPlay() {
+        autoPlayFadeIn();
+      }
+    });
   }
-
-  fade();
 }
 
-document.body.addEventListener('click', () => {
-  if (!hasPlayed) {
-    fadeInAudio();
-    hasPlayed = true;
-  }
-}, { once: true });
+// 页面加载完立刻执行
+window.addEventListener('DOMContentLoaded', autoPlayFadeIn);
 
+// 手动开关
 btn.onclick = () => {
   if (audio.paused) {
     audio.play();
