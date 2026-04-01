@@ -3,395 +3,298 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎂 宝宝生日快乐 | 专属浪漫页</title>
+    <title>致我最爱的宝贝 · 生日快乐</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Microsoft Yahei", "PingFang SC", sans-serif;
         }
 
-        /* 整体渐变背景 温柔粉紫系 高级不刺眼 新增柔光滤镜 */
+        /* 全局背景 & 字体 */
         body {
-            background: linear-gradient(-45deg, #ffc0cb, #ffb6c1, #e6e6fa, #d8bfd8);
-            background-size: 400% 400%;
-            animation: bgGradient 15s ease infinite;
+            font-family: "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #ffd6e0, #f9d7ff, #e2f0fb);
             min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
-            padding: 20px;
-            filter: brightness(1.02); /* 柔光效果 更显高级 */
+            color: #333;
         }
 
-        /* 背景渐变动画 更有灵动高级感 优化流畅度 */
-        @keyframes bgGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* 爱心飘落动画 软萌氛围感拉满 新增颜色渐变 */
-        .heart-fall {
+        /* 开场加载动画 */
+        .loader {
             position: fixed;
-            top: -10vh;
-            z-index: 1;
-            font-size: 18px;
-            animation: heartDrop linear infinite;
-            opacity: 0.8;
-            background: linear-gradient(90deg, #ff69b4, #ff1493);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            animation: fadeOut 1s forwards 3s;
         }
 
-        @keyframes heartDrop {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(110vh) rotate(360deg);
-                opacity: 0;
-            }
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
         }
 
-        /* 主卡片 圆角磨砂质感 高级可爱 优化边框质感 */
-        .main-card {
-            max-width: 700px;
-            margin: 50px auto;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 50px 35px;
-            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 10;
-            border: 2px solid rgba(255, 192, 203, 0.5); /* 软萌边框 更显精致 */
+        .loader-text {
+            font-size: 22px;
+            color: #ff5e8f;
+            margin-top: 20px;
         }
 
-        /* 标题样式 软萌加粗 粉色渐变 新增手写动画 */
-        .title-box {
+        /* 头部标题 */
+        .header {
             text-align: center;
-            margin-bottom: 30px;
+            padding: 60px 20px 30px;
+            animation: fadeIn 2s;
         }
 
-        .main-title {
-            font-size: 46px;
-            background: linear-gradient(90deg, #ff69b4, #ff1493, #9370db);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 12px;
+        .title {
+            font-size: 42px;
+            color: #ff4a7e;
             font-weight: bold;
-            opacity: 0;
-            animation: handWrite 1.8s ease forwards; /* 手写渐入 更温柔 */
+            margin-bottom: 10px;
         }
 
-        .sub-title {
+        .subtitle {
             font-size: 20px;
             color: #666;
-            font-style: italic;
-            opacity: 0;
-            animation: handWrite 1.8s ease 0.8s forwards; /* 延迟动画 层次感 */
         }
 
-        /* 手写动画关键帧 */
-        @keyframes handWrite {
-            from { opacity: 0; transform: translateY(20px); }
+        /* 照片区域 */
+        .photo-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            color: #ff4a7e;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "";
+            width: 80px;
+            height: 3px;
+            background: #ff4a7e;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 照片卡片 */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        .photo-info {
+            padding: 15px;
+        }
+
+        .photo-time {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+
+        .photo-loc {
+            font-size: 16px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        /* 照片弹窗 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 10px;
+        }
+
+        /* 手写信区域 */
+        .letter-section {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 50px 30px;
+            background: #fffaf5;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .letter-section::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid #f7d3c0;
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .letter-text {
+            font-size: 18px;
+            line-height: 2;
+            color: #5a4339;
+            white-space: pre-line;
+            font-family: "KaiTi", serif;
+        }
+
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 照片区域 圆形边框 阴影更精致 新增边框闪烁动效 */
-        .photo-area {
-            text-align: center;
-            margin: 35px 0;
-        }
-
-        .lover-photo {
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 8px solid transparent;
-            background: linear-gradient(white, white) padding-box, linear-gradient(90deg, #ff9a9e, #fad0c4, #fad0c4, #ff9a9e) border-box;
-            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.25);
-            transition: all 0.4s ease;
-            animation: borderFlash 3s ease infinite; /* 边框闪烁 更吸睛 */
-        }
-
-        /* 边框闪烁动画 */
-        @keyframes borderFlash {
-            0%, 100% { box-shadow: 0 8px 25px rgba(255, 105, 180, 0.25); }
-            50% { box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4); }
-        }
-
-        .lover-photo:hover {
-            transform: scale(1.08);
-            box-shadow: 0 12px 30px rgba(255, 105, 180, 0.35);
-        }
-
-        /* 专属情话区域 排版舒适 更走心 新增软萌间距 */
-        .love-words {
-            line-height: 2.2;
-            font-size: 18px;
-            color: #444;
-            margin: 40px 0;
-            text-align: left;
-            padding: 0 20px;
-            background: rgba(255, 240, 245, 0.5); /* 浅粉背景 更软萌 */
-            border-radius: 15px;
-            padding: 25px;
-        }
-
-        .love-words p {
-            margin-bottom: 18px;
-            position: relative;
-            padding-left: 15px;
-        }
-
-        .love-words p::before {
-            content: "💖";
-            position: absolute;
-            left: -5px;
-            top: 2px;
-            font-size: 14px;
-        }
-
-        .highlight-love {
-            color: #ff1493;
-            font-weight: bold;
-            text-decoration: underline;
-            text-underline-offset: 4px;
-        }
-
-        /* 互动按钮 软萌圆角  hover动效 新增按压反馈 */
-        .btn-group {
-            text-align: center;
-            margin-top: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .love-btn {
-            padding: 14px 32px;
-            border-radius: 50px;
-            border: none;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 15px rgba(255, 105, 180, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* 按钮点击波纹特效 */
-        .love-btn::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100px;
-            height: 100px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            animation: btnRipple 0.6s ease-out;
-        }
-
-        @keyframes btnRipple {
-            to {
-                transform: translate(-50%, -50%) scale(2.5);
-                opacity: 0;
-            }
-        }
-
-        .btn-music {
-            background: linear-gradient(90deg, #ff9a9e, #fad0c4);
-            color: white;
-        }
-
-        .btn-love {
-            background: linear-gradient(90deg, #ff69b4, #ff1493);
-            color: white;
-        }
-
-        .love-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
-        }
-
-        .love-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.2);
-        }
-
-        /* 气球动画 彩色软萌气球 飘屏 新增随机大小 */
-        .balloon {
-            position: fixed;
-            bottom: -120px;
-            width: 70px;
-            height: 90px;
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            animation: balloonFloat linear infinite;
-            z-index: 2;
-            filter: drop-shadow(0 5px 8px rgba(0,0,0,0.1));
-        }
-
-        @keyframes balloonFloat {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-110vh) rotate(15deg);
-                opacity: 0;
-            }
-        }
-
-        /* 响应式适配 手机端完美显示 优化细节 */
-        @media (max-width: 768px) {
-            .main-title {
-                font-size: 36px;
-            }
-            .lover-photo {
-                width: 180px;
-                height: 180px;
-            }
-            .main-card {
-                padding: 35px 25px;
-                margin: 30px auto;
-            }
-            .love-btn {
-                padding: 12px 25px;
-                font-size: 16px;
-            }
-            .love-words {
-                font-size: 17px;
-                padding: 20px;
-            }
+        .fade-in {
+            animation: fadeIn 1.5s forwards;
         }
     </style>
 </head>
 <body>
-    <!-- 背景音乐 自动加载 循环播放 新增备用音乐链接 -->
-    <audio id="birthdayMusic" loop preload="auto">
-        <source src="https://music.135editor.com/mp3/20250429/6385665234688264912116476.mp3" type="audio/mpeg">
-        <source src="https://music.135editor.com/mp3/20240520/6288446234544732162115718.mp3&#34; type=&#34;audio/mpeg&#34;&gt; <!-- 备用链接 防止失效 -->
-    </audio>
 
-    <!-- 主内容卡片 -->
-    <div class="main-card">
-        <div class="title-box">
-            <h1 class="main-title">🎂 致我最爱的宝贝</h1>
-            <p class="sub-title">生日快乐，愿你永远被温柔以待</p>
+<!-- 开场动画 -->
+<div class="loader">
+    <div class="loader-text">正在为你打开专属生日纪念 🎂</div>
+</div>
+
+<!-- 头部 -->
+<div class="header">
+    <div class="title">亲爱的，生日快乐</div>
+    <div class="subtitle">这是只属于你的专属纪念网站</div>
+</div>
+
+<!-- 照片区域（带时间 + 地点） -->
+<div class="photo-section">
+    <div class="section-title">我们的时光记忆 ✨</div>
+    <div class="photo-grid">
+        <!-- 照片1 -->
+        <div class="photo-card" onclick="openModal(this)">
+            <img src="https://picsum.photos/600/400?random=1" alt="照片">
+            <div class="photo-info">
+                <div class="photo-time">2025.02.14</div>
+                <div class="photo-loc">上海 · 外滩</div>
+            </div>
         </div>
-
-        <div class="photo-area">
-            <!-- 👇 这里替换成女朋友的照片 本地路径/在线链接都可以 建议尺寸300*300更清晰 -->
-            <img src="/Users/duan/Desktop/DxixD/coloruicss-master/demo/images" alt="我的女孩" class="lover-photo">
+        <!-- 照片2 -->
+        <div class="photo-card" onclick="openModal(this)">
+            <img src="https://picsum.photos/600/400?random=2" alt="照片">
+            <div class="photo-info">
+                <div class="photo-time">2025.05.20</div>
+                <div class="photo-loc">杭州 · 西湖</div>
+            </div>
         </div>
-
-        <div class="love-words">
-            <p>亲爱的宝贝：</p>
-            <p>又到了专属你的日子，很庆幸，我依然陪在你身边。</p>
-            <p>在我心里，你永远是那个可爱、温柔、闪闪发光的女孩，</p>
-            <p>不用刻意长大，不用独自坚强，<span class="highlight-love">我会一直陪着你，宠着你，守护你</span>。</p>
-            <p>愿你新的一岁，平安喜乐，万事胜意，眼里永远有光，笑容永远灿烂。</p>
-            <p>往后余生，三餐四季，朝暮相伴，我会用一辈子的时间，好好爱你。</p>
-            <p style="text-align: right; margin-top: 25px;">永远爱你的人</p>
+        <!-- 照片3 -->
+        <div class="photo-card" onclick="openModal(this)">
+            <img src="https://picsum.photos/600/400?random=3" alt="照片">
+            <div class="photo-info">
+                <div class="photo-time">2025.08.09</div>
+                <div class="photo-loc">我们的小家</div>
+            </div>
         </div>
-
-        <div class="btn-group">
-            <button class="love-btn btn-music" onclick="playLoveMusic()">🎵 播放生日歌</button>
-            <button class="love-btn btn-love" onclick="sendMyLove()">❤️ 点击接收我的爱</button>
+        <!-- 照片4 -->
+        <div class="photo-card" onclick="openModal(this)">
+            <img src="https://picsum.photos/600/400?random=4" alt="照片">
+            <div class="photo-info">
+                <div class="photo-time">2025.10.01</div>
+                <div class="photo-loc">北京 · 天安门</div>
+            </div>
         </div>
     </div>
+</div>
 
-    <script>
-        // 播放生日歌函数 优化提示文案 更专属
-        function playLoveMusic() {
-            let music = document.getElementById("birthdayMusic");
-            if (music.paused) {
-                music.play();
-                alert("🎂 我的宝贝，生日快乐呀！专属生日歌为你温柔响起～");
-            } else {
-                music.pause();
-                alert("音乐暂停啦😘 想再听我的宝贝随时点我哦");
-            }
-        }
+<!-- 照片弹窗 -->
+<div class="modal" id="modal" onclick="closeModal()">
+    <img id="modalImg" src="">
+</div>
 
-        // 爱心暴击互动 新增多组专属情话 随机弹出
-        function sendMyLove() {
-            const loveTips = [
-                "💖 满满的爱意已送达！我超级超级超级爱你，我的宝贝～",
-                "❤️ 我的女孩，生日快乐！往后每一年，我都陪你过",
-                "💞 你是我藏在心底的温柔，也是我明目张胆的偏爱",
-                "💕 宝贝，新的一岁，也要一直被我宠着呀"
-            ];
-            const randomTip = loveTips[Math.floor(Math.random() * loveTips.length)];
-            alert(randomTip);
-            // 触发临时爱心爆炸效果
-            createLoveBurst();
-        }
+<!-- 手写信区域 -->
+<div class="letter-section fade-in">
+    <div class="section-title">给你的手写信 ✍️</div>
+    <div class="letter-text">
+我最亲爱的宝贝：
 
-        // 随机生成飘落爱心 新增更多爱心样式
-        function createHeart() {
-            const hearts = ["❤️", "💗", "💓", "💕", "💞", "💖", "💘", "💝"];
-            const heart = document.createElement("div");
-            heart.classList.add("heart-fall");
-            heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
-            // 随机位置、大小、下落速度
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.fontSize = Math.random() * 15 + 12 + "px";
-            heart.style.animationDuration = Math.random() * 5 + 5 + "s";
-            document.body.appendChild(heart);
-            // 定时移除爱心
-            setTimeout(() => {
-                heart.remove();
-            }, 10000);
-        }
+生日快乐！🎂
+这是我陪你度过的又一个生日，能与你相爱，是我这辈子最幸运的事。
 
-        // 随机生成彩色气球 新增气球大小随机
-        function createBalloon() {
-            const colors = ["#ff69b4", "#ff1493", "#9370db", "#ffb6c1", "#e6e6fa", "#f8c8dc"];
-            const balloon = document.createElement("div");
-            balloon.classList.add("balloon");
-            balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
-            balloon.style.left = Math.random() * 100 + "vw";
-            balloon.style.animationDuration = Math.random() * 4 + 6 + "s";
-            // 随机大小 更显软萌
-            const size = Math.random() * 20 + 60;
-            balloon.style.width = size + "px";
-            balloon.style.height = size * 1.3 + "px";
-            document.body.appendChild(balloon);
-            // 定时移除气球
-            setTimeout(() => {
-                balloon.remove();
-            }, 8000);
-        }
+和你在一起的每一天都闪闪发光，
+一起走过的路、一起看过的风景、一起吃过的饭、一起拥抱的夜晚，
+全都刻在我心里，成为我最珍贵的宝藏。
 
-        // 爱心爆炸特效 增加爱心数量 更有冲击力
-        function createLoveBurst() {
-            for (let i = 0; i < 50; i++) {
-                createHeart();
-            }
-        }
+你温柔、可爱、善良、坚强，
+你是我疲惫生活里的光，是我所有温柔的归宿。
 
-        // 定时生成爱心和气球 优化频率 更流畅
-        setInterval(createHeart, 250);
-        setInterval(createBalloon, 1000);
+未来的路还很长，
+我会一直牵着你的手，
+陪你岁岁年年，爱你朝朝暮暮。
 
-        // 页面加载完成提示 新增弹窗提示 更有仪式感
-        window.onload = function() {
-            console.log("专属生日网页加载完成～ 准备给宝贝惊喜吧！");
-            setTimeout(() => {
-                alert("💖 专属生日惊喜已准备就绪，快喊宝贝来看呀！");
-            }, 1000);
-        }
-    </script>
+愿你永远被幸福包围，
+愿你永远做最快乐的小女孩。
+
+我爱你，不止今天，而是每一天。
+
+永远爱你的人
+XXXX年XX月XX日
+    </div>
+</div>
+
+<script>
+    // 照片弹窗
+    function openModal(el) {
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modalImg');
+        modalImg.src = el.querySelector('img').src;
+        modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+    }
+</script>
 </body>
 </html>
