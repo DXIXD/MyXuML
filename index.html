@@ -15,6 +15,15 @@
 body {
   font-family: "SF Pro Text", "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Roboto, sans-serif;
   background: #f0f4fd;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ========== 主内容区域（默认隐藏，封面点击后显示） ========== */
+.main-content {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
   background-image: url('https://images.unsplash.com/photo-1574634525232-5c2371a6c211?q=80&w=1920');
   background-size: cover;
   background-position: center 30%;
@@ -24,14 +33,18 @@ body {
   padding-bottom: 80px;
 }
 
-/* ========== 封面页 - 粉色主题 + 浪漫元素 ========== */
-.cover {
+.main-content.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ========== 封面页 - 粉色主题独立页面 ========== */
+.cover-page {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  /* 粉色浪漫渐变背景 */
   background: linear-gradient(145deg, #FFB7C5 0%, #FF8FA0 30%, #FF6B85 100%);
   display: flex;
   flex-direction: column;
@@ -39,23 +52,23 @@ body {
   justify-content: center;
   color: white;
   z-index: 10000;
-  transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.9s;
+  transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.8s;
   overflow: hidden;
   position: relative;
 }
 
-/* 飘浮的爱心和气球动画 */
-.cover::before {
+/* 飘浮的爱心和气球动画 - 背景装饰 */
+.cover-page::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="rgba(255,255,255,0.15)" d="M50,30 L55,45 L70,45 L58,55 L63,70 L50,60 L37,70 L42,55 L30,45 L45,45 Z"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="rgba(255,255,255,0.12)" d="M50,30 L55,45 L70,45 L58,55 L63,70 L50,60 L37,70 L42,55 L30,45 L45,45 Z"/></svg>');
   background-size: 60px 60px;
   background-repeat: repeat;
-  opacity: 0.3;
+  opacity: 0.4;
   pointer-events: none;
   animation: floatBg 20s linear infinite;
 }
@@ -109,7 +122,7 @@ body {
   50% { opacity: 1; transform: scale(1.2); }
 }
 
-.cover.hide {
+.cover-page.hide {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -134,7 +147,7 @@ body {
   100% { box-shadow: 0 40px 60px rgba(255,100,120,0.4), 0 0 0 3px rgba(255,255,255,0.6) inset; }
 }
 
-.cover h1 {
+.cover-page h1 {
   font-size: 2.3rem;
   font-weight: 700;
   letter-spacing: -0.3px;
@@ -146,7 +159,7 @@ body {
   color: transparent;
 }
 
-.cover p {
+.cover-page p {
   font-size: 1rem;
   margin-bottom: 32px;
   opacity: 0.95;
@@ -392,8 +405,8 @@ body {
 </head>
 <body>
 
-<!-- 粉色主题封面 + 飘浮元素 -->
-<div class="cover" id="cover">
+<!-- 粉色主题封面独立页面 -->
+<div class="cover-page" id="coverPage">
   <!-- 动态飘浮气球 -->
   <div class="floating-balloon" style="top: 12%; left: 8%; animation-delay: 0s;">🎈</div>
   <div class="floating-balloon" style="top: 20%; right: 12%; animation-delay: 1s;">🎈</div>
@@ -423,61 +436,62 @@ body {
   </div>
 </div>
 
-<!-- 主界面 -->
-<div class="header">
-  <div class="title">🐶 XuML，生日快乐 🎂</div>
-  <div class="subtitle">✨ 这是只属于你的纪念 ✨</div>
-</div>
-
-<div class="tab-wrap">
-  <div class="tab-list">
-    <div class="tab-item active" data-target="a">🏠 首页祝福</div>
-    <div class="tab-item" data-target="b">📸 时光照片</div>
-    <div class="tab-item" data-target="c">✉️ 手写信</div>
+<!-- 主内容区域（初始隐藏） -->
+<div class="main-content" id="mainContent">
+  <div class="header">
+    <div class="title">🐶 XuML，生日快乐 🎂</div>
+    <div class="subtitle">✨ 这是只属于你的纪念 ✨</div>
   </div>
-</div>
 
-<div class="tab-content">
-  <div class="panel active" id="a">
-    <div class="welcome">
-      <h2>✨ 生日快乐，XuML ✨</h2>
-      <p>世界那么大，很幸运能遇见你。<br>每一个平凡的日子，因为有你而闪闪发光。<br>愿你永远被爱，永远快乐，岁岁平安，年年有我。<br>❤️ 今天是你最特别的一天，每一刻都值得珍藏 ❤️</p>
+  <div class="tab-wrap">
+    <div class="tab-list">
+      <div class="tab-item active" data-target="a">🏠 首页祝福</div>
+      <div class="tab-item" data-target="b">📸 时光照片</div>
+      <div class="tab-item" data-target="c">✉️ 手写信</div>
     </div>
   </div>
 
-  <div class="panel" id="b">
-    <div class="photo-panel">
-      <h3>📷 我们的回忆 · 时间与地点</h3>
-      <div class="photo-grid">
-        <div class="photo-card">
-          <img src="https://picsum.photos/id/104/600/400" alt="外滩浪漫">
-          <div class="photo-info">
-            <div class="photo-time">2025.02.14 · 情人节</div>
-            <div class="photo-loc">上海 · 外滩</div>
+  <div class="tab-content">
+    <div class="panel active" id="a">
+      <div class="welcome">
+        <h2>✨ 生日快乐，XuML ✨</h2>
+        <p>世界那么大，很幸运能遇见你。<br>每一个平凡的日子，因为有你而闪闪发光。<br>愿你永远被爱，永远快乐，岁岁平安，年年有我。<br>❤️ 今天是你最特别的一天，每一刻都值得珍藏 ❤️</p>
+      </div>
+    </div>
+
+    <div class="panel" id="b">
+      <div class="photo-panel">
+        <h3>📷 我们的回忆 · 时间与地点</h3>
+        <div class="photo-grid">
+          <div class="photo-card">
+            <img src="https://picsum.photos/id/104/600/400" alt="外滩浪漫">
+            <div class="photo-info">
+              <div class="photo-time">2025.02.14 · 情人节</div>
+              <div class="photo-loc">上海 · 外滩</div>
+            </div>
           </div>
-        </div>
-        <div class="photo-card">
-          <img src="https://picsum.photos/id/96/600/400" alt="西湖断桥">
-          <div class="photo-info">
-            <div class="photo-time">2025.05.20 · 告白之夜</div>
-            <div class="photo-loc">杭州 · 西湖</div>
+          <div class="photo-card">
+            <img src="https://picsum.photos/id/96/600/400" alt="西湖断桥">
+            <div class="photo-info">
+              <div class="photo-time">2025.05.20 · 告白之夜</div>
+              <div class="photo-loc">杭州 · 西湖</div>
+            </div>
           </div>
-        </div>
-        <div class="photo-card">
-          <img src="https://picsum.photos/id/169/600/400" alt="温馨小家">
-          <div class="photo-info">
-            <div class="photo-time">2025.08.09 · 纪念日</div>
-            <div class="photo-loc">🏡 我们的小家</div>
+          <div class="photo-card">
+            <img src="https://picsum.photos/id/169/600/400" alt="温馨小家">
+            <div class="photo-info">
+              <div class="photo-time">2025.08.09 · 纪念日</div>
+              <div class="photo-loc">🏡 我们的小家</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="panel" id="c">
-    <div class="letter">
-      <h3>✍️ 给 XuML 的手写信</h3>
-      <div class="letter-content">
+    <div class="panel" id="c">
+      <div class="letter">
+        <h3>✍️ 给 XuML 的手写信</h3>
+        <div class="letter-content">
 最亲爱的 XuML：
 
 生日快乐。
@@ -495,20 +509,35 @@ body {
 —— 我爱你，不止今天。
 
 永远爱你的人
-        <span style="display:inline-block; margin-top: 12px;">🎂 2026年 · 生日当天 🎂</span>
+          <span style="display:inline-block; margin-top: 12px;">🎂 2026年 · 生日当天 🎂</span>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="footer-note">
-  💝 许个愿吧，我会一直在你身边 💝
+  <div class="footer-note">
+    💝 许个愿吧，我会一直在你身边 💝
+  </div>
 </div>
 
 <audio id="bgMusic" loop preload="auto" crossorigin="anonymous"></audio>
 
 <script>
 (function() {
-  // ========== 1. 背景音乐播放修复 ==========
+  // ========== 封面点击切换 ==========
+  const coverPage = document.getElementById('coverPage');
+  const mainContent = document.getElementById('mainContent');
+  const enterBtn = document.getElementById('enterBtn');
+  
+  enterBtn.addEventListener('click', () => {
+    // 隐藏封面页面
+    coverPage.classList.add('hide');
+    // 显示主内容区域
+    mainContent.classList.add('show');
+    // 启动背景音乐
+    startMusicGracefully();
+  });
+  
+  // ========== 背景音乐播放修复 ==========
   const audio = document.getElementById('bgMusic');
   
   const musicSources = [
@@ -562,16 +591,9 @@ body {
     }
   }
   
-  const cover = document.getElementById('cover');
-  const enterBtn = document.getElementById('enterBtn');
-  
-  enterBtn.addEventListener('click', () => {
-    cover.classList.add('hide');
-    startMusicGracefully();
-  });
-  
+  // 如果音乐因策略问题未播放，用户点击主内容区域时尝试恢复
   document.body.addEventListener('click', function onAnyClick() {
-    if (cover.classList.contains('hide') && !isMusicStarted) {
+    if (mainContent.classList.contains('show') && !isMusicStarted) {
       startMusicGracefully();
       document.body.removeEventListener('click', onAnyClick);
     }
@@ -579,7 +601,7 @@ body {
   
   audio.loop = true;
   
-  // ========== 2. Tab 切换 ==========
+  // ========== Tab 切换 ==========
   const tabs = document.querySelectorAll('.tab-item');
   const panels = document.querySelectorAll('.panel');
   
@@ -608,7 +630,7 @@ body {
     });
   });
   
-  // ========== 3. 爱心涟漪彩蛋 ==========
+  // ========== 爱心涟漪彩蛋 ==========
   const letterPanel = document.querySelector('#c .letter');
   if (letterPanel) {
     letterPanel.addEventListener('click', (e) => {
@@ -636,7 +658,7 @@ body {
     });
   }
   
-  // ========== 4. 照片优化 ==========
+  // ========== 照片优化 ==========
   const photoImgs = document.querySelectorAll('.photo-card img');
   const customImgUrls = [
     "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop",
@@ -657,14 +679,14 @@ body {
     });
   });
   
-  // ========== 5. 动态日期 ==========
+  // ========== 动态日期 ==========
   const letterDateSpan = document.querySelector('#c .letter-content span');
   if (letterDateSpan) {
     const now = new Date();
     letterDateSpan.innerText = `🎂 ${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 · 永远爱你 🎂`;
   }
   
-  // ========== 6. 首页装饰 ==========
+  // ========== 首页装饰 ==========
   const welcomePanel = document.querySelector('#a .welcome');
   if (welcomePanel) {
     const heartSpan = document.createElement('div');
@@ -680,7 +702,7 @@ body {
   style.textContent = `
     .photo-card img { transition: transform 0.35s ease; }
     .tab-item { user-select: none; }
-    .cover .cover-card { animation: gentleAppear 0.7s ease-out; }
+    .cover-card { animation: gentleAppear 0.7s ease-out; }
     @keyframes gentleAppear {
       0% { opacity: 0; transform: scale(0.96); }
       100% { opacity: 1; transform: scale(1); }
