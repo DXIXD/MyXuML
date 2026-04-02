@@ -2,26 +2,36 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>生日快乐 · 专属纪念</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>生日快乐 · 专属纪念 | 致最爱的你</title>
 <style>
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Microsoft YaHei", sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* ======================================
-   封面页样式
-====================================== */
+body {
+  font-family: "SF Pro Text", "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Roboto, sans-serif;
+  background: #f0f4fd;
+  background-image: url('https://images.unsplash.com/photo-1574634525232-5c2371a6c211?q=80&w=1920');
+  background-size: cover;
+  background-position: center 30%;
+  background-attachment: fixed;
+  background-blend-mode: overlay;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* ========== 封面页 (优雅增强) ========== */
 .cover {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), 
+  background: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(30,20,40,0.7)), 
               url('https://images.unsplash.com/photo-1574634525232-5c2371a6c211?q=80&w=1920');
   background-size: cover;
   background-position: center;
@@ -30,148 +40,352 @@
   align-items: center;
   justify-content: center;
   color: white;
-  z-index: 9999;
-  transition: opacity 0.8s ease;
+  z-index: 10000;
+  transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.9s;
+  backdrop-filter: blur(0px);
 }
 .cover.hide {
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
 }
+.cover-card {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 56px;
+  border: 1px solid rgba(255,255,255,0.3);
+  box-shadow: 0 25px 45px rgba(0,0,0,0.2);
+  width: 85%;
+  max-width: 460px;
+}
 .cover h1 {
-  font-size: 32px;
-  margin-bottom: 10px;
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  margin-bottom: 12px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 .cover p {
-  font-size: 16px;
-  margin-bottom: 40px;
-  opacity: 0.9;
+  font-size: 1rem;
+  margin-bottom: 32px;
+  opacity: 0.85;
+  font-weight: 300;
 }
 .enter-btn {
-  padding: 14px 36px;
-  background: rgba(255, 255, 255, 0.25);
-  border: 2px solid #fff;
+  padding: 14px 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1.5px solid rgba(255,255,255,0.8);
   color: white;
-  border-radius: 50px;
-  font-size: 16px;
+  border-radius: 60px;
+  font-size: 1.05rem;
+  font-weight: 500;
   cursor: pointer;
-  backdrop-filter: blur(6px);
-  transition: all 0.3s;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 .enter-btn:hover {
-  background: white;
+  background: #ffffff;
   color: #4a5c7f;
+  border-color: #fff;
+  transform: scale(1.02);
+  letter-spacing: 0.5px;
 }
 
-/* ======================================
-   你原来的生日主页样式
-====================================== */
-body{
-    background:#f0f4fd;
-    background-image:url('https://images.unsplash.com/photo-1574634525232-5c2371a6c211?q=80&w=1920');
-    background-size:cover;
-    background-position:center;
-    background-attachment:fixed;
-    background-blend-mode:soft-light;
-    min-height:100vh;
-    padding-bottom:60px;
+/* ========== 主内容头部 ========== */
+.header {
+  text-align: center;
+  padding: 50px 20px 30px;
 }
-.header{text-align:center;padding:50px 20px 30px}
-.title{font-size:36px;color:#4a5c7f;font-weight:bold}
-.subtitle{font-size:18px;color:#555;margin-top:8px}
+.title {
+  font-size: 2.2rem;
+  color: #2c3e4e;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  text-shadow: 0 2px 4px rgba(255,255,255,0.5);
+  background: linear-gradient(135deg, #2c3e4e, #4a5c7f);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+.subtitle {
+  font-size: 1rem;
+  color: #2c3e50;
+  margin-top: 8px;
+  background: rgba(255,255,240,0.7);
+  display: inline-block;
+  padding: 4px 16px;
+  border-radius: 40px;
+  backdrop-filter: blur(4px);
+}
 
-.tab-wrap{max-width:800px;margin:0 auto 30px;padding:0 20px}
-.tab-list{display:flex;gap:12px;background:rgba(255,255,255,0.9);border-radius:20px;padding:10px}
-.tab-item{flex:1;text-align:center;padding:14px 10px;border-radius:16px;cursor:pointer;color:#868e96;font-weight:500}
-.tab-item.active{background:#4a5c7f;color:#fff}
+/* ========== TAB 优雅设计 ========== */
+.tab-wrap {
+  max-width: 860px;
+  margin: 0 auto 32px;
+  padding: 0 20px;
+}
+.tab-list {
+  display: flex;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 48px;
+  padding: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 12px 6px;
+  border-radius: 40px;
+  cursor: pointer;
+  color: #4a5568;
+  font-weight: 600;
+  transition: all 0.25s;
+  font-size: 1rem;
+}
+.tab-item.active {
+  background: #4a5c7f;
+  color: #fff;
+  box-shadow: 0 6px 12px rgba(74,92,127,0.3);
+}
+.tab-item:not(.active):hover {
+  background: rgba(74,92,127,0.15);
+}
 
-.tab-content{max-width:900px;margin:0 auto;padding:0 20px}
-.panel{display:none}
-.panel.active{display:block;animation:fade .5s}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+/* ========== 内容面板动画增强 ========== */
+.tab-content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.panel {
+  display: none;
+  animation: fadeSlide 0.45s ease forwards;
+}
+.panel.active {
+  display: block;
+}
+@keyframes fadeSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-.welcome{background:rgba(255,255,255,0.93);border-radius:24px;padding:50px 30px;text-align:center}
-.welcome h2{color:#4a5c7f;margin-bottom:20px}
-.welcome p{line-height:1.9;color:#333}
+/* 首页祝福卡片 */
+.welcome {
+  background: rgba(255, 248, 240, 0.96);
+  backdrop-filter: blur(2px);
+  border-radius: 36px;
+  padding: 48px 32px;
+  text-align: center;
+  box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,210,0.6);
+}
+.welcome h2 {
+  color: #4a5c7f;
+  margin-bottom: 24px;
+  font-size: 1.9rem;
+  font-weight: 600;
+}
+.welcome p {
+  line-height: 1.9;
+  color: #2c3e4f;
+  font-size: 1.1rem;
+  background: rgba(255,245,225,0.7);
+  padding: 20px;
+  border-radius: 28px;
+}
 
-.photo-panel h3{text-align:center;color:#4a5c7f;margin-bottom:25px}
-.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
-.photo-card{background:rgba(255,255,255,0.95);border-radius:18px;overflow:hidden}
-.photo-card img{width:100%;height:220px;object-fit:cover}
-.photo-info{padding:15px}
-.photo-time{font-size:14px;color:#888}
-.photo-loc{font-size:16px;color:#333;font-weight:500;margin-top:4px}
+/* 时光照片区域 */
+.photo-panel h3 {
+  text-align: center;
+  color: #3e4e6b;
+  margin-bottom: 32px;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
+}
+.photo-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 28px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.3s;
+  box-shadow: 0 12px 24px -12px rgba(0,0,0,0.2);
+}
+.photo-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 36px -14px rgba(0,0,0,0.25);
+}
+.photo-card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.photo-card:hover img {
+  transform: scale(1.02);
+}
+.photo-info {
+  padding: 18px 16px 20px;
+}
+.photo-time {
+  font-size: 0.85rem;
+  color: #a66b4d;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+.photo-loc {
+  font-size: 1.2rem;
+  color: #2c3e4e;
+  font-weight: 600;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.photo-loc::before {
+  content: "📍";
+  font-size: 0.9rem;
+}
 
-.letter{background:rgba(253,250,245,0.95);border-radius:24px;padding:40px 35px}
-.letter h3{text-align:center;color:#6b5a55;margin-bottom:25px}
-.letter-content{line-height:2.1;color:#444;font-family:KaiTi,serif;white-space:pre-line}
+/* 手写信 古典文艺风 */
+.letter {
+  background: rgba(255, 251, 245, 0.98);
+  border-radius: 40px;
+  padding: 48px 40px;
+  box-shadow: 0 20px 32px -16px rgba(0,0,0,0.12);
+  border: 1px solid #ffefdd;
+}
+.letter h3 {
+  text-align: center;
+  color: #8b5a2b;
+  margin-bottom: 28px;
+  font-size: 1.8rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+.letter-content {
+  line-height: 2;
+  color: #2c2b28;
+  font-family: "KaiTi", "华文楷书", "Georgia", serif;
+  white-space: pre-line;
+  font-size: 1.05rem;
+  background: rgba(253, 245, 230, 0.6);
+  padding: 32px 28px;
+  border-radius: 28px;
+  text-indent: 2em;
+  letter-spacing: 0.3px;
+}
+.letter-content p {
+  margin-bottom: 1rem;
+  text-indent: 2em;
+}
+
+/* 底部装饰 */
+.footer-note {
+  text-align: center;
+  margin-top: 45px;
+  font-size: 13px;
+  color: #7d6b55;
+  background: rgba(255,248,235,0.7);
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px 24px;
+  border-radius: 60px;
+  backdrop-filter: blur(4px);
+}
+
+/* 响应式微调 */
+@media (max-width: 560px) {
+  .title { font-size: 1.8rem; }
+  .welcome h2 { font-size: 1.5rem; }
+  .letter { padding: 30px 18px; }
+  .letter-content { padding: 20px 16px; font-size: 0.95rem; }
+  .photo-card img { height: 190px; }
+  .tab-item { font-size: 0.9rem; padding: 10px 4px; }
+}
 </style>
 </head>
-
 <body>
 
-<!-- ======================================
-     封面页
-====================================== -->
+<!-- 封面层 -->
 <div class="cover" id="cover">
-  <h1>💌 致我最爱的你</h1>
-  <p>点击开启这份生日惊喜</p>
-  <button class="enter-btn" id="enterBtn">点击进入</button>
+  <div class="cover-card">
+    <h1>💌 致我最爱的你</h1>
+    <p>🌟 属于你的特别时刻，轻启浪漫 🌟</p>
+    <button class="enter-btn" id="enterBtn">✨ 翻开纪念册 ✨</button>
+  </div>
 </div>
 
-<!-- ======================================
-     你原来的生日主页
-====================================== -->
+<!-- 主界面 -->
 <div class="header">
-  <div class="title">亲爱的，生日快乐 🐶</div>
-  <div class="subtitle">这是只属于我们的纪念 🎂</div>
+  <div class="title">🐶 亲爱的，生日快乐 🎂</div>
+  <div class="subtitle">✨ 这是只属于我们的纪念 ✨</div>
 </div>
 
 <div class="tab-wrap">
   <div class="tab-list">
-    <div class="tab-item active" data-target="a">首页祝福</div>
-    <div class="tab-item" data-target="b">时光照片</div>
-    <div class="tab-item" data-target="c">手写信</div>
+    <div class="tab-item active" data-target="a">🏠 首页祝福</div>
+    <div class="tab-item" data-target="b">📸 时光照片</div>
+    <div class="tab-item" data-target="c">✉️ 手写信</div>
   </div>
 </div>
 
 <div class="tab-content">
+  <!-- 首页祝福 -->
   <div class="panel active" id="a">
     <div class="welcome">
       <h2>✨ 生日快乐，我的女孩 ✨</h2>
-      <p>世界那么大，很幸运能遇见你。<br>每一个平凡的日子，因为有你而闪闪发光。<br>愿你永远被爱，永远快乐，岁岁平安，年年有我。</p>
+      <p>世界那么大，很幸运能遇见你。<br>每一个平凡的日子，因为有你而闪闪发光。<br>愿你永远被爱，永远快乐，岁岁平安，年年有我。<br>❤️ 今天是你最特别的一天，每一刻都值得珍藏 ❤️</p>
     </div>
   </div>
 
+  <!-- 时光照片（真实地点 + 更生动的描述） -->
   <div class="panel" id="b">
     <div class="photo-panel">
       <h3>📷 我们的回忆 · 时间与地点</h3>
       <div class="photo-grid">
         <div class="photo-card">
-          <img src="https://picsum.photos/600/400?random=1">
+          <img src="https://picsum.photos/id/104/600/400" alt="外滩浪漫">
           <div class="photo-info">
-            <div class="photo-time">2025.02.14</div>
+            <div class="photo-time">2025.02.14 · 情人节</div>
             <div class="photo-loc">上海 · 外滩</div>
           </div>
         </div>
         <div class="photo-card">
-          <img src="https://picsum.photos/600/400?random=2">
+          <img src="https://picsum.photos/id/96/600/400" alt="西湖断桥">
           <div class="photo-info">
-            <div class="photo-time">2025.05.20</div>
+            <div class="photo-time">2025.05.20 · 告白之夜</div>
             <div class="photo-loc">杭州 · 西湖</div>
           </div>
         </div>
         <div class="photo-card">
-          <img src="https://picsum.photos/600/400?random=3">
+          <img src="https://picsum.photos/id/169/600/400" alt="温馨小家">
           <div class="photo-info">
-            <div class="photo-time">2025.08.09</div>
-            <div class="photo-loc">我们的小家</div>
+            <div class="photo-time">2025.08.09 · 纪念日</div>
+            <div class="photo-loc">🏡 我们的小家</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- 手写信 (内容优化+日期动态显示) -->
   <div class="panel" id="c">
     <div class="letter">
       <h3>✍️ 给你的手写信</h3>
@@ -184,69 +398,267 @@ body{
 
 我喜欢你的笑容，喜欢你的温柔，
 喜欢你所有的样子。
+时光慢慢走，而我越来越爱你。
 
 未来的路，我会一直牵着你的手，
 陪你岁岁年年，爱你朝朝暮暮。
 
 愿你永远幸福，永远被偏爱。
-我爱你。
+—— 我爱你，不止今天。
 
 永远爱你的人
-XXXX年XX月XX日
+        <span style="display:inline-block; margin-top: 12px;">🎂 2026年 · 生日当天 🎂</span>
       </div>
     </div>
   </div>
 </div>
+<div class="footer-note">
+  💝 许个愿吧，我会一直在你身边 💝
+</div>
 
-<audio id="bgMusic" loop>
+<audio id="bgMusic" loop preload="auto"></audio>
 
 <script>
-// ======================================
-// 1. 封面进入逻辑
-// ======================================
-const cover = document.getElementById('cover');
-const enterBtn = document.getElementById('enterBtn');
-
-enterBtn.addEventListener('click', () => {
-  cover.classList.add('hide');
-  // 进入后再播放音乐
-  startMusic();
-});
-
-// ======================================
-// 2. Tab 切换
-// ======================================
-const tabs = document.querySelectorAll('.tab-item');
-tabs.forEach(t => {
-  t.onclick = () => {
-    tabs.forEach(x => x.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    t.classList.add('active');
-    document.getElementById(t.dataset.target).classList.add('active');
-  };
-});
-
-// ======================================
-// 3. 生日快乐背景音乐 + 渐入
-// ======================================
-const audio = document.getElementById('bgMusic');
-audio.src = "https://assets.mixkit.co/sfx/preview/mixkit-children-birthday-song-1746.mp3";
-
-function startMusic() {
-  audio.volume = 0;
-  audio.play().catch(() => {});
-
-  let vol = 0;
-  const timer = setInterval(() => {
-    vol += 0.01;
-    if (vol >= 0.4) {
-      vol = 0.4;
-      clearInterval(timer);
+(function() {
+  // ========== 1. 封面优雅消失 + 音乐启动 (防止自动播放策略) ==========
+  const cover = document.getElementById('cover');
+  const enterBtn = document.getElementById('enterBtn');
+  const audio = document.getElementById('bgMusic');
+  
+  // 设置生日音乐源 (更欢快经典的生日旋律)
+  audio.src = "https://assets.mixkit.co/sfx/preview/mixkit-happy-birthday-song-135749.mp3";
+  // 如果上面的备用链接失效则使用第二个可靠链接（但mixkit大多可用）
+  audio.addEventListener('error', () => {
+    audio.src = "https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c6f0f5a2.mp3?filename=happy-birthday-127224.mp3";
+  });
+  
+  // 音乐渐入函数 (优雅)
+  let isMusicStarted = false;
+  
+  function startMusicGracefully() {
+    if (isMusicStarted) return;
+    isMusicStarted = true;
+    audio.volume = 0;
+    audio.play().then(() => {
+      let vol = 0;
+      const fadeInterval = setInterval(() => {
+        vol += 0.012;
+        if (vol >= 0.32) {
+          vol = 0.32;
+          clearInterval(fadeInterval);
+        }
+        audio.volume = vol;
+      }, 80);
+    }).catch((e) => {
+      // 某些浏览器仍需要用户交互, 但点击封面已经算用户交互, 一般可播
+      console.log("自动播放需要额外手势, 但已经有点击事件");
+    });
+  }
+  
+  // 封面进入按钮事件
+  enterBtn.addEventListener('click', () => {
+    cover.classList.add('hide');
+    startMusicGracefully();
+    // 可选: 震动感? 无侵入
+  });
+  
+  // 如果用户点击封面任意位置也可视为进入（但尊重原设计仅按钮，不过增加体验可点背景？只处理按钮即可）
+  
+  // ========== 2. Tab 切换优化 (增加页面滚动保留，无干扰) ==========
+  const tabs = document.querySelectorAll('.tab-item');
+  const panels = document.querySelectorAll('.panel');
+  
+  function switchTab(targetId) {
+    // 更新tab样式
+    tabs.forEach(tab => {
+      const tabTarget = tab.getAttribute('data-target');
+      if (tabTarget === targetId) {
+        tab.classList.add('active');
+      } else {
+        tab.classList.remove('active');
+      }
+    });
+    // 切换面板
+    panels.forEach(panel => {
+      if (panel.id === targetId) {
+        panel.classList.add('active');
+      } else {
+        panel.classList.remove('active');
+      }
+    });
+  }
+  
+  tabs.forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      const target = tab.getAttribute('data-target');
+      if (!target) return;
+      switchTab(target);
+    });
+  });
+  
+  // ========== 3. 增加交互小彩蛋: 点击手写信爱心涟漪? 增加温柔感 ==========
+  const letterPanel = document.querySelector('#c .letter');
+  if (letterPanel) {
+    letterPanel.addEventListener('click', (e) => {
+      // 简单的小浮标爱心特效，不影响任何功能
+      const ripple = document.createElement('span');
+      ripple.innerText = '❤️';
+      ripple.style.position = 'absolute';
+      ripple.style.fontSize = '1.4rem';
+      ripple.style.pointerEvents = 'none';
+      ripple.style.opacity = '0.8';
+      ripple.style.transform = 'translate(-50%, -50%) scale(0.5)';
+      ripple.style.transition = 'all 0.6s ease-out';
+      const rect = letterPanel.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+      ripple.style.position = 'absolute';
+      letterPanel.style.position = 'relative';
+      letterPanel.appendChild(ripple);
+      requestAnimationFrame(() => {
+        ripple.style.transform = 'translate(-50%, -50%) scale(1.8)';
+        ripple.style.opacity = '0';
+      });
+      setTimeout(() => {
+        if (ripple && ripple.parentNode) ripple.remove();
+      }, 600);
+    });
+  }
+  
+  // ========== 4. 照片懒加载 + 图片优雅降级: 增加随机占位但风格统一 ==========
+  // 所有照片已经直接展示，增加alt和title但无所谓，不过为了质量替换更高清生日情感图片
+  // 为了让图片更温暖，可微调但picsum已经挺好，更新部分特殊图片让画面更温馨
+  const photoImgs = document.querySelectorAll('.photo-card img');
+  // 定制图片映射: 让每个照片更有故事感(从unsplash随机但保证风格)
+  const customImgUrls = [
+    "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop",   // 情侣浪漫
+    "https://images.unsplash.com/photo-1516589091380-5c3d6ddb17e5?w=600&h=400&fit=crop",   // 日落牵手
+    "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&h=400&fit=crop"    // 温馨居家
+  ];
+  if (photoImgs.length === customImgUrls.length) {
+    photoImgs.forEach((img, idx) => {
+      // 保留原来照片地址但增加更温暖的图片链接，但不破坏布局，优雅替换
+      // 但因为原照片是随机风景，不太具有纪念感，改成更有爱意的照片(使用unsplash合法照片)
+      // 为避免跨年失效，照片都是高质量免费图库
+      img.src = customImgUrls[idx];
+      img.alt = "甜蜜回忆";
+      img.loading = "lazy";
+    });
+  } else {
+    // 后备: 至少修改部分内容
+    if(photoImgs.length >= 1) photoImgs[0].src = "https://images.unsplash.com/photo-1516589091380-5c3d6ddb17e5?w=600&h=400&fit=crop";
+    if(photoImgs.length >= 2) photoImgs[1].src = "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop";
+    if(photoImgs.length >= 3) photoImgs[2].src = "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&h=400&fit=crop";
+  }
+  
+  // 增加图片加载失败fallback
+  document.querySelectorAll('.photo-card img').forEach(img => {
+    img.addEventListener('error', function() {
+      this.src = "https://picsum.photos/id/20/600/400";  // 优雅降级
+    });
+  });
+  
+  // ========== 5. 增加生日气球氛围: 点击页面角落飘心？可选简单 canvas? 不增加复杂度，但加小细节 ==========
+  // 在页面右下角增加一个浮动“🎈”祝福语
+  const balloonDiv = document.createElement('div');
+  balloonDiv.innerHTML = '🎂🎈 生日惊喜 🎈🎂';
+  balloonDiv.style.position = 'fixed';
+  balloonDiv.style.bottom = '16px';
+  balloonDiv.style.right = '16px';
+  balloonDiv.style.background = 'rgba(255,225,200,0.85)';
+  balloonDiv.style.backdropFilter = 'blur(12px)';
+  balloonDiv.style.padding = '8px 16px';
+  balloonDiv.style.borderRadius = '40px';
+  balloonDiv.style.fontSize = '13px';
+  balloonDiv.style.fontWeight = '500';
+  balloonDiv.style.color = '#b45f2b';
+  balloonDiv.style.zIndex = '999';
+  balloonDiv.style.pointerEvents = 'none';
+  balloonDiv.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+  balloonDiv.style.fontFamily = 'inherit';
+  document.body.appendChild(balloonDiv);
+  
+  // 6. 动态更新当前年份/日期在手写信下方 (生动)
+  const letterDateSpan = document.querySelector('#c .letter-content span');
+  if (letterDateSpan) {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    letterDateSpan.innerText = `🎂 ${year}年${month}月${day}日 · 永远爱你 🎂`;
+  } else {
+    // 更稳健方式
+    const letterDiv = document.querySelector('#c .letter-content');
+    if (letterDiv && !letterDiv.querySelector('.dynamic-date')) {
+      const dynamicDate = document.createElement('div');
+      const now = new Date();
+      dynamicDate.className = 'dynamic-date';
+      dynamicDate.style.marginTop = '12px';
+      dynamicDate.style.textAlign = 'right';
+      dynamicDate.style.fontFamily = 'inherit';
+      dynamicDate.innerText = `${now.getFullYear()}.${now.getMonth()+1}.${now.getDate()}  永远爱你`;
+      letterDiv.appendChild(dynamicDate);
     }
-    audio.volume = vol;
-  }, 60);
-}
+  }
+  
+  // 7. 额外优化: 如果音乐因为缓存问题不播放，再次尝试在点击body任意地方时唤醒 (但已经有点击进入封面)
+  // 确保音乐用户交互顺畅
+  const resumeMusicOnAnyClick = () => {
+    if (!isMusicStarted && !cover.classList.contains('hide')) {
+      // 尚未进入封面则忽略
+      return;
+    }
+    if (audio.paused && isMusicStarted === false && cover.classList.contains('hide')) {
+      // 已经进入主页但没有播放的情况, 用户轻触任意位置播放
+      startMusicGracefully();
+      document.removeEventListener('click', resumeMusicOnAnyClick);
+    } else if (audio.paused && isMusicStarted) {
+      audio.play().catch(()=>{});
+      document.removeEventListener('click', resumeMusicOnAnyClick);
+    }
+  };
+  // 如果进入主页后音乐没自动播放成功，帮助用户通过首次触摸恢复
+  document.body.addEventListener('click', resumeMusicOnAnyClick);
+  
+  // 如果页面加载完成封面未操作时，也保持静谧
+  
+  // 8. 增加首页祝福区域的心形小动画，提升温情
+  const welcomePanel = document.querySelector('#a .welcome');
+  if (welcomePanel) {
+    const heartSpan = document.createElement('div');
+    heartSpan.style.marginTop = '18px';
+    heartSpan.style.fontSize = '1.2rem';
+    heartSpan.style.opacity = '0.8';
+    heartSpan.innerHTML = '🌸 今日所有美好都属于你 🌸';
+    welcomePanel.appendChild(heartSpan);
+  }
+  
+  // 额外优化照片网格的阴影以及整体对比
+  const style = document.createElement('style');
+  style.textContent = `
+    .photo-card img {
+      transition: transform 0.35s ease;
+    }
+    .tab-item {
+      user-select: none;
+    }
+    .cover .cover-card {
+      animation: gentleAppear 0.7s ease-out;
+    }
+    @keyframes gentleAppear {
+      0% { opacity: 0; transform: scale(0.96); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  `;
+  document.head.appendChild(style);
+  
+  // 9. 修复可能因为audio循环而自动播放两次
+  audio.loop = true;
+  
+  // 最后把封面页背景和主页融合更好
+})();
 </script>
-
 </body>
 </html>
