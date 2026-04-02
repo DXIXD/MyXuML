@@ -24,15 +24,15 @@ body {
   padding-bottom: 80px;
 }
 
-/* ========== 封面页 (完全不透明，无透明混合) ========== */
+/* ========== 封面页 - 粉色主题 + 浪漫元素 ========== */
 .cover {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  background-blend-mode: normal;
+  /* 粉色浪漫渐变背景 */
+  background: linear-gradient(145deg, #FFB7C5 0%, #FF8FA0 30%, #FF6B85 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,7 +40,11 @@ body {
   color: white;
   z-index: 10000;
   transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.9s;
+  overflow: hidden;
+  position: relative;
 }
+
+/* 飘浮的爱心和气球动画 */
 .cover::before {
   content: "";
   position: absolute;
@@ -48,62 +52,130 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('https://images.unsplash.com/photo-1574634525232-5c2371a6c211?q=80&w=1920');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.2;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="rgba(255,255,255,0.15)" d="M50,30 L55,45 L70,45 L58,55 L63,70 L50,60 L37,70 L42,55 L30,45 L45,45 Z"/></svg>');
+  background-size: 60px 60px;
+  background-repeat: repeat;
+  opacity: 0.3;
   pointer-events: none;
+  animation: floatBg 20s linear infinite;
 }
+
+@keyframes floatBg {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-100px) rotate(5deg); }
+}
+
+/* 飘浮的气球元素 */
+.floating-balloon {
+  position: absolute;
+  font-size: 2.5rem;
+  animation: floatBalloon 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes floatBalloon {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+  50% { transform: translateY(-30px) rotate(5deg); opacity: 1; }
+  100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+}
+
+/* 飘浮的爱心 */
+.floating-heart {
+  position: absolute;
+  font-size: 1.8rem;
+  animation: floatHeart 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes floatHeart {
+  0% { transform: translateY(0) scale(1); opacity: 0.6; }
+  50% { transform: translateY(-25px) scale(1.2); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 0.6; }
+}
+
+/* 星星闪烁 */
+.twinkling-star {
+  position: absolute;
+  font-size: 1.2rem;
+  animation: twinkle 2s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
 .cover.hide {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
+
 .cover-card {
   text-align: center;
-  padding: 2rem;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(12px);
-  border-radius: 56px;
-  border: 1px solid rgba(255,255,255,0.3);
-  box-shadow: 0 25px 45px rgba(0,0,0,0.3);
+  padding: 2.2rem 2rem;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px);
+  border-radius: 64px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
   width: 85%;
-  max-width: 460px;
-  z-index: 2;
-  position: relative;
+  max-width: 480px;
+  z-index: 10;
+  animation: cardGlowPink 2s infinite alternate;
 }
+
+@keyframes cardGlowPink {
+  0% { box-shadow: 0 30px 50px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.3) inset; }
+  100% { box-shadow: 0 40px 60px rgba(255,100,120,0.4), 0 0 0 3px rgba(255,255,255,0.6) inset; }
+}
+
 .cover h1 {
-  font-size: 2.2rem;
-  font-weight: 600;
+  font-size: 2.3rem;
+  font-weight: 700;
   letter-spacing: -0.3px;
   margin-bottom: 12px;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, #FFF5F5, #FFE0E0);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
+
 .cover p {
   font-size: 1rem;
   margin-bottom: 32px;
-  opacity: 0.9;
-  font-weight: 300;
+  opacity: 0.95;
+  font-weight: 400;
+  color: #FFF5F5;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
+
 .enter-btn {
-  padding: 14px 40px;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1.5px solid rgba(255,255,255,0.8);
+  padding: 14px 44px;
+  background: rgba(255, 255, 255, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.9);
   color: white;
   border-radius: 60px;
   font-size: 1.05rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   backdrop-filter: blur(8px);
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
+
 .enter-btn:hover {
   background: #ffffff;
-  color: #4a5c7f;
+  color: #FF6B85;
   border-color: #fff;
-  transform: scale(1.02);
-  letter-spacing: 0.5px;
+  transform: scale(1.05);
+  letter-spacing: 1px;
+  box-shadow: 0 10px 25px rgba(255,255,255,0.3);
 }
 
 /* ========== 主内容头部 ========== */
@@ -169,7 +241,7 @@ body {
   background: rgba(74,92,127,0.15);
 }
 
-/* ========== 内容面板动画增强 ========== */
+/* ========== 内容面板 ========== */
 .tab-content {
   max-width: 960px;
   margin: 0 auto;
@@ -183,17 +255,10 @@ body {
   display: block;
 }
 @keyframes fadeSlide {
-  0% {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-/* 首页祝福卡片 */
 .welcome {
   background: rgba(255, 248, 240, 0.96);
   backdrop-filter: blur(2px);
@@ -218,7 +283,6 @@ body {
   border-radius: 28px;
 }
 
-/* 时光照片区域 */
 .photo-panel h3 {
   text-align: center;
   color: #3e4e6b;
@@ -274,7 +338,6 @@ body {
   font-size: 0.9rem;
 }
 
-/* 手写信 古典文艺风 */
 .letter {
   background: rgba(255, 251, 245, 0.98);
   border-radius: 40px;
@@ -302,12 +365,7 @@ body {
   text-indent: 2em;
   letter-spacing: 0.3px;
 }
-.letter-content p {
-  margin-bottom: 1rem;
-  text-indent: 2em;
-}
 
-/* 底部装饰 */
 .footer-note {
   text-align: center;
   margin-top: 45px;
@@ -322,7 +380,6 @@ body {
   backdrop-filter: blur(4px);
 }
 
-/* 响应式微调 */
 @media (max-width: 560px) {
   .title { font-size: 1.8rem; }
   .welcome h2 { font-size: 1.5rem; }
@@ -335,11 +392,33 @@ body {
 </head>
 <body>
 
-<!-- 封面层 -->
+<!-- 粉色主题封面 + 飘浮元素 -->
 <div class="cover" id="cover">
+  <!-- 动态飘浮气球 -->
+  <div class="floating-balloon" style="top: 12%; left: 8%; animation-delay: 0s;">🎈</div>
+  <div class="floating-balloon" style="top: 20%; right: 12%; animation-delay: 1s;">🎈</div>
+  <div class="floating-balloon" style="bottom: 18%; left: 15%; animation-delay: 2s;">🎈</div>
+  <div class="floating-balloon" style="bottom: 25%; right: 20%; animation-delay: 0.5s;">🎈</div>
+  
+  <!-- 飘浮爱心 -->
+  <div class="floating-heart" style="top: 15%; left: 20%; animation-delay: 0.3s;">❤️</div>
+  <div class="floating-heart" style="top: 30%; right: 18%; animation-delay: 1.2s;">💖</div>
+  <div class="floating-heart" style="bottom: 30%; left: 25%; animation-delay: 0.8s;">💗</div>
+  <div class="floating-heart" style="bottom: 20%; right: 28%; animation-delay: 1.5s;">💕</div>
+  <div class="floating-heart" style="top: 45%; left: 5%; animation-delay: 0.5s;">💓</div>
+  <div class="floating-heart" style="top: 55%; right: 8%; animation-delay: 1.8s;">💝</div>
+  
+  <!-- 闪烁星星 -->
+  <div class="twinkling-star" style="top: 8%; right: 25%; animation-delay: 0s;">✨</div>
+  <div class="twinkling-star" style="top: 22%; left: 35%; animation-delay: 0.7s;">⭐</div>
+  <div class="twinkling-star" style="bottom: 15%; right: 40%; animation-delay: 1.2s;">🌟</div>
+  <div class="twinkling-star" style="top: 65%; left: 12%; animation-delay: 0.4s;">✨</div>
+  <div class="twinkling-star" style="bottom: 40%; left: 45%; animation-delay: 0.9s;">⭐</div>
+  <div class="twinkling-star" style="top: 75%; right: 22%; animation-delay: 1.5s;">🌟</div>
+  
   <div class="cover-card">
     <h1>💌 致 XuML</h1>
-    <p>🌟 属于你的特别时刻，轻启浪漫 🌟</p>
+    <p>🌸 粉色浪漫 · 专属于你的生日惊喜 🌸</p>
     <button class="enter-btn" id="enterBtn">✨ 翻开纪念册 ✨</button>
   </div>
 </div>
@@ -429,11 +508,9 @@ body {
 
 <script>
 (function() {
-  // ========== 1. 修复背景音乐播放问题 ==========
-  // 使用多个备用音乐源，确保至少一个能正常播放
+  // ========== 1. 背景音乐播放修复 ==========
   const audio = document.getElementById('bgMusic');
   
-  // 音乐源列表（多个可靠的生日快乐音乐链接）
   const musicSources = [
     "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
     "https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c6f0f5a2.mp3?filename=happy-birthday-127224.mp3",
@@ -441,14 +518,11 @@ body {
   ];
   
   let currentSourceIndex = 0;
-  let musicReady = false;
   let isMusicStarted = false;
   let fadeInterval = null;
   
-  // 尝试加载下一个音乐源
   function tryNextMusicSource() {
     if (currentSourceIndex >= musicSources.length) {
-      console.log("所有音乐源均无法加载，将使用静默模式");
       return false;
     }
     audio.src = musicSources[currentSourceIndex];
@@ -456,36 +530,21 @@ body {
     return true;
   }
   
-  // 监听加载错误，切换到下一个源
-  audio.addEventListener('error', function(e) {
-    console.log("音乐加载失败，尝试下一个源");
+  audio.addEventListener('error', function() {
     if (tryNextMusicSource()) {
       audio.load();
     }
   });
   
-  // 当音乐可以播放时标记
-  audio.addEventListener('canplaythrough', function() {
-    musicReady = true;
-  });
-  
-  // 启动第一个音乐源
   tryNextMusicSource();
   
-  // 音乐淡入播放函数
   function startMusicGracefully() {
     if (isMusicStarted) return;
     isMusicStarted = true;
-    
-    // 设置音量从0开始淡入
     audio.volume = 0;
-    
-    // 播放音乐，处理浏览器自动播放策略
     const playPromise = audio.play();
-    
     if (playPromise !== undefined) {
       playPromise.then(() => {
-        // 播放成功，开始淡入
         if (fadeInterval) clearInterval(fadeInterval);
         let vol = 0;
         fadeInterval = setInterval(() => {
@@ -497,52 +556,28 @@ body {
           }
           audio.volume = vol;
         }, 80);
-      }).catch((error) => {
-        // 播放失败，可能是因为用户尚未交互
-        console.log("自动播放被阻止，等待用户交互:", error);
+      }).catch(() => {
         isMusicStarted = false;
-        // 设置一个标志，等待用户点击页面任意位置时再次尝试
-        window.__needResumeMusic = true;
       });
     }
   }
   
-  // 恢复播放（用于用户交互后）
-  function resumeMusic() {
-    if (isMusicStarted) return;
-    if (audio.paused || audio.readyState < 2) {
-      startMusicGracefully();
-    }
-  }
-  
-  // 封面进入按钮事件
   const cover = document.getElementById('cover');
   const enterBtn = document.getElementById('enterBtn');
   
   enterBtn.addEventListener('click', () => {
     cover.classList.add('hide');
-    // 立即尝试播放音乐
     startMusicGracefully();
   });
   
-  // 全局点击监听：如果音乐因为策略问题没播放，用户点击任何地方后尝试恢复
   document.body.addEventListener('click', function onAnyClick() {
     if (cover.classList.contains('hide') && !isMusicStarted) {
       startMusicGracefully();
-      // 移除监听，避免重复尝试
       document.body.removeEventListener('click', onAnyClick);
     }
   });
   
-  // 页面可见性变化时恢复音乐（用户切回页面时）
-  document.addEventListener('visibilitychange', function() {
-    if (!document.hidden && cover.classList.contains('hide') && audio.paused && isMusicStarted) {
-      audio.play().catch(() => {});
-    }
-  });
-  
-  // 预加载音频数据，提升播放响应速度
-  audio.preload = 'auto';
+  audio.loop = true;
   
   // ========== 2. Tab 切换 ==========
   const tabs = document.querySelectorAll('.tab-item');
@@ -567,14 +602,13 @@ body {
   }
   
   tabs.forEach(tab => {
-    tab.addEventListener('click', (e) => {
+    tab.addEventListener('click', () => {
       const target = tab.getAttribute('data-target');
-      if (!target) return;
-      switchTab(target);
+      if (target) switchTab(target);
     });
   });
   
-  // ========== 3. 手写信爱心涟漪彩蛋 ==========
+  // ========== 3. 爱心涟漪彩蛋 ==========
   const letterPanel = document.querySelector('#c .letter');
   if (letterPanel) {
     letterPanel.addEventListener('click', (e) => {
@@ -598,9 +632,7 @@ body {
         ripple.style.transform = 'translate(-50%, -50%) scale(1.8)';
         ripple.style.opacity = '0';
       });
-      setTimeout(() => {
-        if (ripple && ripple.parentNode) ripple.remove();
-      }, 600);
+      setTimeout(() => ripple.remove(), 600);
     });
   }
   
@@ -611,17 +643,13 @@ body {
     "https://images.unsplash.com/photo-1516589091380-5c3d6ddb17e5?w=600&h=400&fit=crop",
     "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&h=400&fit=crop"
   ];
-  if (photoImgs.length === customImgUrls.length) {
-    photoImgs.forEach((img, idx) => {
+  photoImgs.forEach((img, idx) => {
+    if (idx < customImgUrls.length) {
       img.src = customImgUrls[idx];
       img.alt = "甜蜜回忆";
       img.loading = "lazy";
-    });
-  } else {
-    if(photoImgs.length >= 1) photoImgs[0].src = "https://images.unsplash.com/photo-1516589091380-5c3d6ddb17e5?w=600&h=400&fit=crop";
-    if(photoImgs.length >= 2) photoImgs[1].src = "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop";
-    if(photoImgs.length >= 3) photoImgs[2].src = "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&h=400&fit=crop";
-  }
+    }
+  });
   
   document.querySelectorAll('.photo-card img').forEach(img => {
     img.addEventListener('error', function() {
@@ -629,35 +657,14 @@ body {
     });
   });
   
-  // ========== 5. 浮动祝福气球 ==========
-  const balloonDiv = document.createElement('div');
-  balloonDiv.innerHTML = '🎂🎈 生日惊喜 🎈🎂';
-  balloonDiv.style.position = 'fixed';
-  balloonDiv.style.bottom = '16px';
-  balloonDiv.style.right = '16px';
-  balloonDiv.style.background = 'rgba(255,225,200,0.85)';
-  balloonDiv.style.backdropFilter = 'blur(12px)';
-  balloonDiv.style.padding = '8px 16px';
-  balloonDiv.style.borderRadius = '40px';
-  balloonDiv.style.fontSize = '13px';
-  balloonDiv.style.fontWeight = '500';
-  balloonDiv.style.color = '#b45f2b';
-  balloonDiv.style.zIndex = '999';
-  balloonDiv.style.pointerEvents = 'none';
-  balloonDiv.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
-  document.body.appendChild(balloonDiv);
-  
-  // ========== 6. 动态更新手写信日期 ==========
+  // ========== 5. 动态日期 ==========
   const letterDateSpan = document.querySelector('#c .letter-content span');
   if (letterDateSpan) {
     const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth() + 1;
-    const day = now.getDate();
-    letterDateSpan.innerText = `🎂 ${year}年${month}月${day}日 · 永远爱你 🎂`;
+    letterDateSpan.innerText = `🎂 ${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 · 永远爱你 🎂`;
   }
   
-  // ========== 7. 首页专属装饰 ==========
+  // ========== 6. 首页装饰 ==========
   const welcomePanel = document.querySelector('#a .welcome');
   if (welcomePanel) {
     const heartSpan = document.createElement('div');
@@ -668,7 +675,7 @@ body {
     welcomePanel.appendChild(heartSpan);
   }
   
-  // 额外样式动画
+  // 额外样式
   const style = document.createElement('style');
   style.textContent = `
     .photo-card img { transition: transform 0.35s ease; }
@@ -680,16 +687,6 @@ body {
     }
   `;
   document.head.appendChild(style);
-  
-  audio.loop = true;
-  
-  // 如果音乐长时间无法加载，尝试手动触发一次加载
-  setTimeout(() => {
-    if (audio.readyState === 0 && !isMusicStarted) {
-      // 重新尝试加载
-      audio.load();
-    }
-  }, 1000);
 })();
 </script>
 </body>
