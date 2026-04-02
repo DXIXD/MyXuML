@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>XuML·Birthday</title>
+<title>XuML · 生日快乐专属纪念</title>
 <style>
 * {
   margin: 0;
@@ -24,17 +24,15 @@ body {
   padding-bottom: 80px;
 }
 
-/* ========== 封面页 (优雅增强) ========== */
+/* ========== 封面页 (完全不透明，无透明混合) ========== */
 .cover {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(30,20,40,0.7)), 
-              url('https://images.unsplash.com/photo-1574634525232-5c2371a6c211?q=80&w=1920');
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background-blend-mode: normal;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,7 +40,19 @@ body {
   color: white;
   z-index: 10000;
   transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.9s;
-  backdrop-filter: blur(0px);
+}
+.cover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://images.unsplash.com/photo-1574634525232-5c2371a6c211?q=80&w=1920');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+  pointer-events: none;
 }
 .cover.hide {
   opacity: 0;
@@ -56,21 +66,23 @@ body {
   backdrop-filter: blur(12px);
   border-radius: 56px;
   border: 1px solid rgba(255,255,255,0.3);
-  box-shadow: 0 25px 45px rgba(0,0,0,0.2);
+  box-shadow: 0 25px 45px rgba(0,0,0,0.3);
   width: 85%;
   max-width: 460px;
+  z-index: 2;
+  position: relative;
 }
 .cover h1 {
   font-size: 2.2rem;
   font-weight: 600;
   letter-spacing: -0.3px;
   margin-bottom: 12px;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 .cover p {
   font-size: 1rem;
   margin-bottom: 32px;
-  opacity: 0.85;
+  opacity: 0.9;
   font-weight: 300;
 }
 .enter-btn {
@@ -84,7 +96,7 @@ body {
   cursor: pointer;
   backdrop-filter: blur(8px);
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 .enter-btn:hover {
   background: #ffffff;
@@ -335,7 +347,7 @@ body {
 <!-- 主界面 -->
 <div class="header">
   <div class="title">🐶 XuML，生日快乐 🎂</div>
-  <div class="subtitle">✨ 这是只属于我们的纪念 ✨</div>
+  <div class="subtitle">✨ 这是只属于你的纪念 ✨</div>
 </div>
 
 <div class="tab-wrap">
@@ -347,7 +359,6 @@ body {
 </div>
 
 <div class="tab-content">
-  <!-- 首页祝福 -->
   <div class="panel active" id="a">
     <div class="welcome">
       <h2>✨ 生日快乐，XuML ✨</h2>
@@ -355,7 +366,6 @@ body {
     </div>
   </div>
 
-  <!-- 时光照片（真实地点 + 更生动的描述） -->
   <div class="panel" id="b">
     <div class="photo-panel">
       <h3>📷 我们的回忆 · 时间与地点</h3>
@@ -385,7 +395,6 @@ body {
     </div>
   </div>
 
-  <!-- 手写信 (内容优化+日期动态显示) -->
   <div class="panel" id="c">
     <div class="letter">
       <h3>✍️ 给 XuML 的手写信</h3>
@@ -416,60 +425,130 @@ body {
   💝 许个愿吧，我会一直在你身边 💝
 </div>
 
-<audio id="bgMusic" loop preload="auto"></audio>
+<audio id="bgMusic" loop preload="auto" crossorigin="anonymous"></audio>
 
 <script>
 (function() {
-  // ========== 1. 封面优雅消失 + 音乐启动 (防止自动播放策略) ==========
-  const cover = document.getElementById('cover');
-  const enterBtn = document.getElementById('enterBtn');
+  // ========== 1. 修复背景音乐播放问题 ==========
+  // 使用多个备用音乐源，确保至少一个能正常播放
   const audio = document.getElementById('bgMusic');
   
-  // 设置生日音乐源 (更欢快经典的生日旋律)
-  audio.src = "https://assets.mixkit.co/sfx/preview/mixkit-happy-birthday-song-135749.mp3";
-  // 如果上面的备用链接失效则使用第二个可靠链接（但mixkit大多可用）
-  audio.addEventListener('error', () => {
-    audio.src = "https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c6f0f5a2.mp3?filename=happy-birthday-127224.mp3";
+  // 音乐源列表（多个可靠的生日快乐音乐链接）
+  const musicSources = [
+    "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    "https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c6f0f5a2.mp3?filename=happy-birthday-127224.mp3",
+    "https://assets.mixkit.co/sfx/preview/mixkit-happy-birthday-song-135749.mp3"
+  ];
+  
+  let currentSourceIndex = 0;
+  let musicReady = false;
+  let isMusicStarted = false;
+  let fadeInterval = null;
+  
+  // 尝试加载下一个音乐源
+  function tryNextMusicSource() {
+    if (currentSourceIndex >= musicSources.length) {
+      console.log("所有音乐源均无法加载，将使用静默模式");
+      return false;
+    }
+    audio.src = musicSources[currentSourceIndex];
+    currentSourceIndex++;
+    return true;
+  }
+  
+  // 监听加载错误，切换到下一个源
+  audio.addEventListener('error', function(e) {
+    console.log("音乐加载失败，尝试下一个源");
+    if (tryNextMusicSource()) {
+      audio.load();
+    }
   });
   
-  // 音乐渐入函数 (优雅)
-  let isMusicStarted = false;
+  // 当音乐可以播放时标记
+  audio.addEventListener('canplaythrough', function() {
+    musicReady = true;
+  });
   
+  // 启动第一个音乐源
+  tryNextMusicSource();
+  
+  // 音乐淡入播放函数
   function startMusicGracefully() {
     if (isMusicStarted) return;
     isMusicStarted = true;
+    
+    // 设置音量从0开始淡入
     audio.volume = 0;
-    audio.play().then(() => {
-      let vol = 0;
-      const fadeInterval = setInterval(() => {
-        vol += 0.012;
-        if (vol >= 0.32) {
-          vol = 0.32;
-          clearInterval(fadeInterval);
-        }
-        audio.volume = vol;
-      }, 80);
-    }).catch((e) => {
-      // 某些浏览器仍需要用户交互, 但点击封面已经算用户交互, 一般可播
-      console.log("自动播放需要额外手势, 但已经有点击事件");
-    });
+    
+    // 播放音乐，处理浏览器自动播放策略
+    const playPromise = audio.play();
+    
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        // 播放成功，开始淡入
+        if (fadeInterval) clearInterval(fadeInterval);
+        let vol = 0;
+        fadeInterval = setInterval(() => {
+          vol += 0.015;
+          if (vol >= 0.35) {
+            vol = 0.35;
+            clearInterval(fadeInterval);
+            fadeInterval = null;
+          }
+          audio.volume = vol;
+        }, 80);
+      }).catch((error) => {
+        // 播放失败，可能是因为用户尚未交互
+        console.log("自动播放被阻止，等待用户交互:", error);
+        isMusicStarted = false;
+        // 设置一个标志，等待用户点击页面任意位置时再次尝试
+        window.__needResumeMusic = true;
+      });
+    }
+  }
+  
+  // 恢复播放（用于用户交互后）
+  function resumeMusic() {
+    if (isMusicStarted) return;
+    if (audio.paused || audio.readyState < 2) {
+      startMusicGracefully();
+    }
   }
   
   // 封面进入按钮事件
+  const cover = document.getElementById('cover');
+  const enterBtn = document.getElementById('enterBtn');
+  
   enterBtn.addEventListener('click', () => {
     cover.classList.add('hide');
+    // 立即尝试播放音乐
     startMusicGracefully();
-    // 可选: 震动感? 无侵入
   });
   
-  // 如果用户点击封面任意位置也可视为进入（但尊重原设计仅按钮，不过增加体验可点背景？只处理按钮即可）
+  // 全局点击监听：如果音乐因为策略问题没播放，用户点击任何地方后尝试恢复
+  document.body.addEventListener('click', function onAnyClick() {
+    if (cover.classList.contains('hide') && !isMusicStarted) {
+      startMusicGracefully();
+      // 移除监听，避免重复尝试
+      document.body.removeEventListener('click', onAnyClick);
+    }
+  });
   
-  // ========== 2. Tab 切换优化 (增加页面滚动保留，无干扰) ==========
+  // 页面可见性变化时恢复音乐（用户切回页面时）
+  document.addEventListener('visibilitychange', function() {
+    if (!document.hidden && cover.classList.contains('hide') && audio.paused && isMusicStarted) {
+      audio.play().catch(() => {});
+    }
+  });
+  
+  // 预加载音频数据，提升播放响应速度
+  audio.preload = 'auto';
+  
+  // ========== 2. Tab 切换 ==========
   const tabs = document.querySelectorAll('.tab-item');
   const panels = document.querySelectorAll('.panel');
   
   function switchTab(targetId) {
-    // 更新tab样式
     tabs.forEach(tab => {
       const tabTarget = tab.getAttribute('data-target');
       if (tabTarget === targetId) {
@@ -478,7 +557,6 @@ body {
         tab.classList.remove('active');
       }
     });
-    // 切换面板
     panels.forEach(panel => {
       if (panel.id === targetId) {
         panel.classList.add('active');
@@ -496,11 +574,10 @@ body {
     });
   });
   
-  // ========== 3. 增加交互小彩蛋: 点击手写信爱心涟漪? 增加温柔感 ==========
+  // ========== 3. 手写信爱心涟漪彩蛋 ==========
   const letterPanel = document.querySelector('#c .letter');
   if (letterPanel) {
     letterPanel.addEventListener('click', (e) => {
-      // 简单的小浮标爱心特效，不影响任何功能
       const ripple = document.createElement('span');
       ripple.innerText = '❤️';
       ripple.style.position = 'absolute';
@@ -527,41 +604,32 @@ body {
     });
   }
   
-  // ========== 4. 照片懒加载 + 图片优雅降级: 增加随机占位但风格统一 ==========
-  // 所有照片已经直接展示，增加alt和title但无所谓，不过为了质量替换更高清生日情感图片
-  // 为了让图片更温暖，可微调但picsum已经挺好，更新部分特殊图片让画面更温馨
+  // ========== 4. 照片优化 ==========
   const photoImgs = document.querySelectorAll('.photo-card img');
-  // 定制图片映射: 让每个照片更有故事感(从unsplash随机但保证风格)
   const customImgUrls = [
-    "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop",   // 情侣浪漫
-    "https://images.unsplash.com/photo-1516589091380-5c3d6ddb17e5?w=600&h=400&fit=crop",   // 日落牵手
-    "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&h=400&fit=crop"    // 温馨居家
+    "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1516589091380-5c3d6ddb17e5?w=600&h=400&fit=crop",
+    "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&h=400&fit=crop"
   ];
   if (photoImgs.length === customImgUrls.length) {
     photoImgs.forEach((img, idx) => {
-      // 保留原来照片地址但增加更温暖的图片链接，但不破坏布局，优雅替换
-      // 但因为原照片是随机风景，不太具有纪念感，改成更有爱意的图片(使用unsplash合法照片)
-      // 为避免跨年失效，照片都是高质量免费图库
       img.src = customImgUrls[idx];
       img.alt = "甜蜜回忆";
       img.loading = "lazy";
     });
   } else {
-    // 后备: 至少修改部分内容
     if(photoImgs.length >= 1) photoImgs[0].src = "https://images.unsplash.com/photo-1516589091380-5c3d6ddb17e5?w=600&h=400&fit=crop";
     if(photoImgs.length >= 2) photoImgs[1].src = "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop";
     if(photoImgs.length >= 3) photoImgs[2].src = "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&h=400&fit=crop";
   }
   
-  // 增加图片加载失败fallback
   document.querySelectorAll('.photo-card img').forEach(img => {
     img.addEventListener('error', function() {
-      this.src = "https://picsum.photos/id/20/600/400";  // 优雅降级
+      this.src = "https://picsum.photos/id/20/600/400";
     });
   });
   
-  // ========== 5. 增加生日气球氛围: 点击页面角落飘心？可选简单 canvas? 不增加复杂度，但加小细节 ==========
-  // 在页面右下角增加一个浮动“🎈”祝福语
+  // ========== 5. 浮动祝福气球 ==========
   const balloonDiv = document.createElement('div');
   balloonDiv.innerHTML = '🎂🎈 生日惊喜 🎈🎂';
   balloonDiv.style.position = 'fixed';
@@ -577,10 +645,9 @@ body {
   balloonDiv.style.zIndex = '999';
   balloonDiv.style.pointerEvents = 'none';
   balloonDiv.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
-  balloonDiv.style.fontFamily = 'inherit';
   document.body.appendChild(balloonDiv);
   
-  // 6. 动态更新当前年份/日期在手写信下方 (生动)
+  // ========== 6. 动态更新手写信日期 ==========
   const letterDateSpan = document.querySelector('#c .letter-content span');
   if (letterDateSpan) {
     const now = new Date();
@@ -588,43 +655,9 @@ body {
     const month = now.getMonth() + 1;
     const day = now.getDate();
     letterDateSpan.innerText = `🎂 ${year}年${month}月${day}日 · 永远爱你 🎂`;
-  } else {
-    // 更稳健方式
-    const letterDiv = document.querySelector('#c .letter-content');
-    if (letterDiv && !letterDiv.querySelector('.dynamic-date')) {
-      const dynamicDate = document.createElement('div');
-      const now = new Date();
-      dynamicDate.className = 'dynamic-date';
-      dynamicDate.style.marginTop = '12px';
-      dynamicDate.style.textAlign = 'right';
-      dynamicDate.style.fontFamily = 'inherit';
-      dynamicDate.innerText = `${now.getFullYear()}.${now.getMonth()+1}.${now.getDate()}  永远爱你`;
-      letterDiv.appendChild(dynamicDate);
-    }
   }
   
-  // 7. 额外优化: 如果音乐因为缓存问题不播放，再次尝试在点击body任意地方时唤醒 (但已经有点击进入封面)
-  // 确保音乐用户交互顺畅
-  const resumeMusicOnAnyClick = () => {
-    if (!isMusicStarted && !cover.classList.contains('hide')) {
-      // 尚未进入封面则忽略
-      return;
-    }
-    if (audio.paused && isMusicStarted === false && cover.classList.contains('hide')) {
-      // 已经进入主页但没有播放的情况, 用户轻触任意位置播放
-      startMusicGracefully();
-      document.removeEventListener('click', resumeMusicOnAnyClick);
-    } else if (audio.paused && isMusicStarted) {
-      audio.play().catch(()=>{});
-      document.removeEventListener('click', resumeMusicOnAnyClick);
-    }
-  };
-  // 如果进入主页后音乐没自动播放成功，帮助用户通过首次触摸恢复
-  document.body.addEventListener('click', resumeMusicOnAnyClick);
-  
-  // 如果页面加载完成封面未操作时，也保持静谧
-  
-  // 8. 增加首页祝福区域的心形小动画，提升温情
+  // ========== 7. 首页专属装饰 ==========
   const welcomePanel = document.querySelector('#a .welcome');
   if (welcomePanel) {
     const heartSpan = document.createElement('div');
@@ -635,18 +668,12 @@ body {
     welcomePanel.appendChild(heartSpan);
   }
   
-  // 额外优化照片网格的阴影以及整体对比
+  // 额外样式动画
   const style = document.createElement('style');
   style.textContent = `
-    .photo-card img {
-      transition: transform 0.35s ease;
-    }
-    .tab-item {
-      user-select: none;
-    }
-    .cover .cover-card {
-      animation: gentleAppear 0.7s ease-out;
-    }
+    .photo-card img { transition: transform 0.35s ease; }
+    .tab-item { user-select: none; }
+    .cover .cover-card { animation: gentleAppear 0.7s ease-out; }
     @keyframes gentleAppear {
       0% { opacity: 0; transform: scale(0.96); }
       100% { opacity: 1; transform: scale(1); }
@@ -654,10 +681,15 @@ body {
   `;
   document.head.appendChild(style);
   
-  // 9. 修复可能因为audio循环而自动播放两次
   audio.loop = true;
   
-  // 最后把封面页背景和主页融合更好
+  // 如果音乐长时间无法加载，尝试手动触发一次加载
+  setTimeout(() => {
+    if (audio.readyState === 0 && !isMusicStarted) {
+      // 重新尝试加载
+      audio.load();
+    }
+  }, 1000);
 })();
 </script>
 </body>
