@@ -172,7 +172,32 @@ html, body {
   text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
-.enter-btn {
+/* 浪漫密码输入框 */
+.pwd-input {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 30px;
+  border: 2px solid rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.3);
+  color: #fff;
+  font-size: 1rem;
+  text-align: center;
+  outline: none;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+.pwd-input::placeholder {
+  color: rgba(255,255,255,0.8);
+}
+.pwd-input:focus {
+  border-color: #fff;
+  background: rgba(255,255,255,0.4);
+  transform: scale(1.03);
+}
+
+/* 解锁按钮 */
+.unlock-btn {
   padding: 14px 44px;
   background: rgba(255, 255, 255, 0.35);
   border: 2px solid rgba(255, 255, 255, 0.9);
@@ -184,15 +209,24 @@ html, body {
   backdrop-filter: blur(8px);
   transition: all 0.3s ease;
   box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  width: 100%;
 }
-
-.enter-btn:hover {
+.unlock-btn:hover {
   background: #ffffff;
   color: #FF6B85;
   border-color: #fff;
   transform: scale(1.05);
   letter-spacing: 1px;
   box-shadow: 0 10px 25px rgba(255,255,255,0.3);
+}
+
+/* 提示文字 */
+#tipText {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: #fff;
+  opacity: 0.9;
+  height: 20px;
 }
 
 /* ========== 主内容头部 ========== */
@@ -409,7 +443,7 @@ html, body {
 </head>
 <body>
 
-<!-- 粉色主题封面独立页面 -->
+<!-- 粉色主题密码封面 -->
 <div class="cover-page" id="coverPage">
   <!-- 动态飘浮气球 -->
   <div class="floating-balloon" style="top: 12%; left: 8%; animation-delay: 0s;">🎈</div>
@@ -435,15 +469,19 @@ html, body {
   
   <div class="cover-card">
     <h1>💌 致 XuML</h1>
-    <p>🌸 粉色浪漫 · 专属于你的生日惊喜 🌸</p>
-    <button class="enter-btn" id="enterBtn">✨ 翻开纪念册 ✨</button>
+    <p>🌸 请输入爱的密码，开启惊喜 🌸</p>
+    
+    <!-- 密码输入框 -->
+    <input type="password" class="pwd-input" id="pwdInput" placeholder="请输入密码">
+    <button class="unlock-btn" id="unlockBtn">🔓 解锁纪念册</button>
+    <div id="tipText"></div>
   </div>
 </div>
 
 <!-- 主内容区域（初始隐藏） -->
 <div class="main-content" id="mainContent">
   <div class="header">
-    <div class="title">🐶 XuML，生日快乐 🎂</div>
+    <div class="title"> XuML，生日快乐 🎂</div>
     <div class="subtitle">✨ 这是只属于你的纪念 ✨</div>
   </div>
 
@@ -527,15 +565,39 @@ html, body {
 
 <script>
 (function() {
-  // ========== 封面点击切换 ==========
+  // ========== 密码解锁配置 ==========
+  const CORRECT_PWD = "DxixD"; // 你可以改成任意密码：XuML / 生日 / 1314 等
   const coverPage = document.getElementById('coverPage');
   const mainContent = document.getElementById('mainContent');
-  const enterBtn = document.getElementById('enterBtn');
+  const pwdInput = document.getElementById('pwdInput');
+  const unlockBtn = document.getElementById('unlockBtn');
+  const tipText = document.getElementById('tipText');
   
-  enterBtn.addEventListener('click', () => {
-    coverPage.classList.add('hide');
-    mainContent.classList.add('show');
-    startMusicGracefully();
+  // 解锁函数
+  function tryUnlock() {
+    const val = pwdInput.value.trim();
+    if (val === CORRECT_PWD) {
+      tipText.innerText = "✅ 密码正确，爱意解锁成功！";
+      tipText.style.color = "#E8F5E8";
+      setTimeout(() => {
+        coverPage.classList.add('hide');
+        mainContent.classList.add('show');
+        startMusicGracefully();
+      }, 600);
+    } else {
+      tipText.innerText = "💔 密码不对哦，再试试吧～";
+      tipText.style.color = "#FFE5E5";
+      pwdInput.value = "";
+      pwdInput.focus();
+    }
+  }
+  
+  // 点击按钮解锁
+  unlockBtn.addEventListener('click', tryUnlock);
+  
+  // 回车解锁
+  pwdInput.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') tryUnlock();
   });
   
   // ========== 背景音乐播放修复 ==========
