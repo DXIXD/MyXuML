@@ -12,10 +12,11 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-body {
+html, body {
+  width: 100%;
+  height: 100%;
   font-family: "SF Pro Text", "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Roboto, sans-serif;
   background: #f0f4fd;
-  min-height: 100vh;
   overflow-x: hidden;
 }
 
@@ -29,8 +30,12 @@ body {
   background-position: center 30%;
   background-attachment: fixed;
   background-blend-mode: overlay;
+  width: 100%;
   min-height: 100vh;
   padding-bottom: 80px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .main-content.show {
@@ -40,11 +45,11 @@ body {
 
 /* ========== 封面页 - 粉色主题独立页面 ========== */
 .cover-page {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: linear-gradient(145deg, #FFB7C5 0%, #FF8FA0 30%, #FF6B85 100%);
   display: flex;
   flex-direction: column;
@@ -54,7 +59,6 @@ body {
   z-index: 10000;
   transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.8s;
   overflow: hidden;
-  position: relative;
 }
 
 /* 飘浮的爱心和气球动画 - 背景装饰 */
@@ -529,11 +533,8 @@ body {
   const enterBtn = document.getElementById('enterBtn');
   
   enterBtn.addEventListener('click', () => {
-    // 隐藏封面页面
     coverPage.classList.add('hide');
-    // 显示主内容区域
     mainContent.classList.add('show');
-    // 启动背景音乐
     startMusicGracefully();
   });
   
@@ -591,7 +592,6 @@ body {
     }
   }
   
-  // 如果音乐因策略问题未播放，用户点击主内容区域时尝试恢复
   document.body.addEventListener('click', function onAnyClick() {
     if (mainContent.classList.contains('show') && !isMusicStarted) {
       startMusicGracefully();
@@ -647,7 +647,6 @@ body {
       const y = e.clientY - rect.top;
       ripple.style.left = x + 'px';
       ripple.style.top = y + 'px';
-      ripple.style.position = 'absolute';
       letterPanel.style.position = 'relative';
       letterPanel.appendChild(ripple);
       requestAnimationFrame(() => {
@@ -697,7 +696,6 @@ body {
     welcomePanel.appendChild(heartSpan);
   }
   
-  // 额外样式
   const style = document.createElement('style');
   style.textContent = `
     .photo-card img { transition: transform 0.35s ease; }
