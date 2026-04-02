@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>生日快乐 · 专属纪念 | 致最爱的你</title>
+<title>XuML·Birthday</title>
 <style>
 * {
   margin: 0;
@@ -326,7 +326,7 @@ body {
 <!-- 封面层 -->
 <div class="cover" id="cover">
   <div class="cover-card">
-    <h1>💌 致我最爱的你</h1>
+    <h1>💌 致 XuML</h1>
     <p>🌟 属于你的特别时刻，轻启浪漫 🌟</p>
     <button class="enter-btn" id="enterBtn">✨ 翻开纪念册 ✨</button>
   </div>
@@ -334,7 +334,7 @@ body {
 
 <!-- 主界面 -->
 <div class="header">
-  <div class="title">🐶 亲爱的，生日快乐 🎂</div>
+  <div class="title">🐶 XuML，生日快乐 🎂</div>
   <div class="subtitle">✨ 这是只属于我们的纪念 ✨</div>
 </div>
 
@@ -350,7 +350,7 @@ body {
   <!-- 首页祝福 -->
   <div class="panel active" id="a">
     <div class="welcome">
-      <h2>✨ 生日快乐，我的女孩 ✨</h2>
+      <h2>✨ 生日快乐，XuML ✨</h2>
       <p>世界那么大，很幸运能遇见你。<br>每一个平凡的日子，因为有你而闪闪发光。<br>愿你永远被爱，永远快乐，岁岁平安，年年有我。<br>❤️ 今天是你最特别的一天，每一刻都值得珍藏 ❤️</p>
     </div>
   </div>
@@ -388,9 +388,9 @@ body {
   <!-- 手写信 (内容优化+日期动态显示) -->
   <div class="panel" id="c">
     <div class="letter">
-      <h3>✍️ 给你的手写信</h3>
+      <h3>✍️ 给 XuML 的手写信</h3>
       <div class="letter-content">
-我最亲爱的宝贝：
+最亲爱的 XuML：
 
 生日快乐。
 这是我陪你度过的又一个生日，
@@ -540,7 +540,7 @@ body {
   if (photoImgs.length === customImgUrls.length) {
     photoImgs.forEach((img, idx) => {
       // 保留原来照片地址但增加更温暖的图片链接，但不破坏布局，优雅替换
-      // 但因为原照片是随机风景，不太具有纪念感，改成更有爱意的照片(使用unsplash合法照片)
+      // 但因为原照片是随机风景，不太具有纪念感，改成更有爱意的图片(使用unsplash合法照片)
       // 为避免跨年失效，照片都是高质量免费图库
       img.src = customImgUrls[idx];
       img.alt = "甜蜜回忆";
@@ -631,7 +631,7 @@ body {
     heartSpan.style.marginTop = '18px';
     heartSpan.style.fontSize = '1.2rem';
     heartSpan.style.opacity = '0.8';
-    heartSpan.innerHTML = '🌸 今日所有美好都属于你 🌸';
+    heartSpan.innerHTML = '🌸 今日所有美好都属于 XuML 🌸';
     welcomePanel.appendChild(heartSpan);
   }
   
