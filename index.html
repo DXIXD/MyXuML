@@ -3,9 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>致我最爱的你 · 生日快乐</title>
+<title>生日快乐 · 专属纪念</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Microsoft YaHei", sans-serif;
+}
+
+/* ======================================
+   封面页样式
+====================================== */
+.cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), 
+              url('https://images.unsplash.com/photo-1574634525232-5c2371a6c211?q=80&w=1920');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 9999;
+  transition: opacity 0.8s ease;
+}
+.cover.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+.cover h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+.cover p {
+  font-size: 16px;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+.enter-btn {
+  padding: 14px 36px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 2px solid #fff;
+  color: white;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s;
+}
+.enter-btn:hover {
+  background: white;
+  color: #4a5c7f;
+}
+
+/* ======================================
+   你原来的生日主页样式
+====================================== */
 body{
     background:#f0f4fd;
     background-image:url('https://images.unsplash.com/photo-1574634525232-5c2371a6c211?q=80&w=1920');
@@ -47,62 +107,75 @@ body{
 .letter-content{line-height:2.1;color:#444;font-family:KaiTi,serif;white-space:pre-line}
 </style>
 </head>
+
 <body>
 
+<!-- ======================================
+     封面页
+====================================== -->
+<div class="cover" id="cover">
+  <h1>💌 致我最爱的你</h1>
+  <p>点击开启这份生日惊喜</p>
+  <button class="enter-btn" id="enterBtn">点击进入</button>
+</div>
+
+<!-- ======================================
+     你原来的生日主页
+====================================== -->
 <div class="header">
-    <div class="title">亲爱的，生日快乐 🐶</div>
-    <div class="subtitle">这是只属于我们的纪念 🎂</div>
+  <div class="title">亲爱的，生日快乐 🐶</div>
+  <div class="subtitle">这是只属于我们的纪念 🎂</div>
 </div>
 
 <div class="tab-wrap">
-    <div class="tab-list">
-        <div class="tab-item active" data-target="a">首页祝福</div>
-        <div class="tab-item" data-target="b">时光照片</div>
-        <div class="tab-item" data-target="c">手写信</div>
-    </div>
+  <div class="tab-list">
+    <div class="tab-item active" data-target="a">首页祝福</div>
+    <div class="tab-item" data-target="b">时光照片</div>
+    <div class="tab-item" data-target="c">手写信</div>
+  </div>
 </div>
 
 <div class="tab-content">
-    <div class="panel active" id="a">
-        <div class="welcome">
-            <h2>✨ 生日快乐，我的女孩 ✨</h2>
-            <p>世界那么大，很幸运能遇见你。<br>每一个平凡的日子，因为有你而闪闪发光。<br>愿你永远被爱，永远快乐，岁岁平安，年年有我。</p>
-        </div>
+  <div class="panel active" id="a">
+    <div class="welcome">
+      <h2>✨ 生日快乐，我的女孩 ✨</h2>
+      <p>世界那么大，很幸运能遇见你。<br>每一个平凡的日子，因为有你而闪闪发光。<br>愿你永远被爱，永远快乐，岁岁平安，年年有我。</p>
     </div>
+  </div>
 
-    <div class="panel" id="b">
-        <div class="photo-panel">
-            <h3>📷 我们的回忆 · 时间与地点</h3>
-            <div class="photo-grid">
-                <div class="photo-card">
-                    <img src="https://picsum.photos/600/400?random=1">
-                    <div class="photo-info">
-                        <div class="photo-time">2025.02.14</div>
-                        <div class="photo-loc">上海 · 外滩</div>
-                    </div>
-                </div>
-                <div class="photo-card">
-                    <img src="https://picsum.photos/600/400?random=2">
-                    <div class="photo-info">
-                        <div class="photo-time">2025.05.20</div>
-                        <div class="photo-loc">杭州 · 西湖</div>
-                    </div>
-                </div>
-                <div class="photo-card">
-                    <img src="https://picsum.photos/600/400?random=3">
-                    <div class="photo-info">
-                        <div class="photo-time">2025.08.09</div>
-                        <div class="photo-loc">我们的小家</div>
-                    </div>
-                </div>
-            </div>
+  <div class="panel" id="b">
+    <div class="photo-panel">
+      <h3>📷 我们的回忆 · 时间与地点</h3>
+      <div class="photo-grid">
+        <div class="photo-card">
+          <img src="https://picsum.photos/600/400?random=1">
+          <div class="photo-info">
+            <div class="photo-time">2025.02.14</div>
+            <div class="photo-loc">上海 · 外滩</div>
+          </div>
         </div>
+        <div class="photo-card">
+          <img src="https://picsum.photos/600/400?random=2">
+          <div class="photo-info">
+            <div class="photo-time">2025.05.20</div>
+            <div class="photo-loc">杭州 · 西湖</div>
+          </div>
+        </div>
+        <div class="photo-card">
+          <img src="https://picsum.photos/600/400?random=3">
+          <div class="photo-info">
+            <div class="photo-time">2025.08.09</div>
+            <div class="photo-loc">我们的小家</div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="panel" id="c">
-        <div class="letter">
-            <h3>✍️ 给你的手写信</h3>
-            <div class="letter-content">
+  <div class="panel" id="c">
+    <div class="letter">
+      <h3>✍️ 给你的手写信</h3>
+      <div class="letter-content">
 我最亲爱的宝贝：
 
 生日快乐。
@@ -120,51 +193,60 @@ body{
 
 永远爱你的人
 XXXX年XX月XX日
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <audio id="bgMusic" loop>
 
 <script>
-// Tab切换
+// ======================================
+// 1. 封面进入逻辑
+// ======================================
+const cover = document.getElementById('cover');
+const enterBtn = document.getElementById('enterBtn');
+
+enterBtn.addEventListener('click', () => {
+  cover.classList.add('hide');
+  // 进入后再播放音乐
+  startMusic();
+});
+
+// ======================================
+// 2. Tab 切换
+// ======================================
 const tabs = document.querySelectorAll('.tab-item');
 tabs.forEach(t => {
   t.onclick = () => {
-    tabs.forEach(x=>x.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    tabs.forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     t.classList.add('active');
     document.getElementById(t.dataset.target).classList.add('active');
-  }
+  };
 });
 
-// 生日快乐纯音乐 · 稳定可播放
+// ======================================
+// 3. 生日快乐背景音乐 + 渐入
+// ======================================
 const audio = document.getElementById('bgMusic');
-audio.src = "https://cdn.bensound.com/bensound-music/bensound-happybirthday.mp3";
+audio.src = "https://assets.mixkit.co/sfx/preview/mixkit-children-birthday-song-1746.mp3";
 
-// 自动渐入播放
-function playFadeIn() {
+function startMusic() {
   audio.volume = 0;
-  const p = audio.play();
-  if (p) {
-    p.then(() => {
-      let vol = 0;
-      const itv = setInterval(() => {
-        vol += 0.015;
-        if (vol >= 0.4) {
-          vol = 0.4;
-          clearInterval(itv);
-        }
-        audio.volume = vol;
-      }, 50);
-    }).catch(() => {
-      document.addEventListener('click', playFadeIn, { once: true });
-    });
-  }
-}
+  audio.play().catch(() => {});
 
-window.addEventListener('DOMContentLoaded', playFadeIn);
+  let vol = 0;
+  const timer = setInterval(() => {
+    vol += 0.01;
+    if (vol >= 0.4) {
+      vol = 0.4;
+      clearInterval(timer);
+    }
+    audio.volume = vol;
+  }, 60);
+}
 </script>
+
 </body>
 </html>
