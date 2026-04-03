@@ -59,22 +59,16 @@ html, body {
   overflow: hidden;
 }
 
-/* 🔥 气球：不间断无限飘 + 速度自然分布 + 不扎堆 🔥 */
+/* 🔥 气球基础样式 🔥 */
 .floating-balloon {
   position: fixed;
   font-size: 1.8rem;
   bottom: -80px;
-  animation: floatBalloonUp 20s linear infinite;
   pointer-events: none;
   z-index: 9999999 !important;
 }
-@keyframes floatBalloonUp {
-  0% { transform: translateY(0) rotate(-1deg); opacity: 0.7; }
-  50% { transform: translateY(-70vh) rotate(1deg); opacity: 1; }
-  100% { transform: translateY(-140vh) rotate(-1deg); opacity: 0; }
-}
 
-/* 🌟 你原来的星星：100% 保留 + 正常闪烁 🌟 */
+/* 🌟 星星：完全保留 🌟 */
 .twinkling-star {
   position: absolute;
   font-size: 1.1rem;
@@ -412,20 +406,10 @@ html, body {
   </div>
 </div>
 
-<!-- 🔥 完美气球：不间断飘 + 速度分布自然 + 不扎堆 🔥 -->
-<div class="floating-balloon" style="left:5%; animation-delay:-2s; animation-duration:28s;">🎈</div>
-<div class="floating-balloon" style="left:13%; animation-delay:-5s; animation-duration:31s;">🩷</div>
-<div class="floating-balloon" style="left:22%; animation-delay:-1s; animation-duration:26s;">🎀</div>
-<div class="floating-balloon" style="left:31%; animation-delay:-7s; animation-duration:33s;">🎈</div>
-<div class="floating-balloon" style="left:40%; animation-delay:-3s; animation-duration:29s;">🩷</div>
-<div class="floating-balloon" style="left:49%; animation-delay:-8s; animation-duration:35s;">🎀</div>
-<div class="floating-balloon" style="left:58%; animation-delay:-4s; animation-duration:27s;">🎈</div>
-<div class="floating-balloon" style="left:67%; animation-delay:-6s; animation-duration:32s;">🩷</div>
-<div class="floating-balloon" style="left:76%; animation-delay:-2s; animation-duration:30s;">🎀</div>
-<div class="floating-balloon" style="left:85%; animation-delay:-9s; animation-duration:34s;">🎈</div>
-<div class="floating-balloon" style="left:94%; animation-delay:-4s; animation-duration:28s;">🩷</div>
+<!-- 气球容器（JS自动生成，真正无限飘） -->
+<div id="balloonContainer"></div>
 
-<!-- 🌟 你原来的星星：100% 保留 🌟 -->
+<!-- 🌟 星星：100% 保留 🌟 -->
 <div class="twinkling-star" style="top: 5%; right: 10%; animation-delay: 0s;">✨</div>
 <div class="twinkling-star" style="top: 8%; left: 15%; animation-delay: 0.3s;">⭐</div>
 <div class="twinkling-star" style="top: 12%; right: 25%; animation-delay: 0.7s;">🌟</div>
@@ -523,6 +507,59 @@ html, body {
 
 <script>
 (function() {
+  // ——————————————————————————————————————
+  // 🔥 真·无限气球系统（永远飘、不断档）
+  // ——————————————————————————————————————
+  const balloonContainer = document.getElementById('balloonContainer');
+  const balloonEmojis = ['🎈', '🩷', '🎀'];
+  const BALLOON_COUNT = 12; // 同时飘的数量
+  const MIN_DURATION = 26;  // 最慢
+  const MAX_DURATION = 36;  // 最快
+
+  function createSingleBalloon() {
+    const b = document.createElement('div');
+    b.className = 'floating-balloon';
+    b.innerText = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
+    
+    // 随机水平位置
+    const left = Math.random() * 94 + 3;
+    b.style.left = left + '%';
+    
+    // 随机速度
+    const dur = MIN_DURATION + Math.random() * (MAX_DURATION - MIN_DURATION);
+    const delay = Math.random() * -10;
+
+    // 动画：从底部飘出 → 消失 → 自动重新创建
+    b.style.animation = `floatUp ${dur}s linear ${delay}s forwards`;
+    
+    const keyframes = `
+      @keyframes floatUp {
+        0% { transform: translateY(0) rotate(-1deg); opacity: 0.7; }
+        50% { transform: translateY(-70vh) rotate(1deg); opacity: 1; }
+        100% { transform: translateY(-140vh) rotate(-1deg); opacity: 0; }
+      }
+    `;
+    const style = document.createElement('style');
+    style.innerHTML = keyframes;
+    document.head.appendChild(style);
+
+    balloonContainer.appendChild(b);
+
+    // 飘完自动销毁并生成新气球 → 无限循环
+    setTimeout(() => {
+      b.remove();
+      createSingleBalloon();
+    }, (dur + delay) * 1000);
+  }
+
+  // 初始化一批气球
+  for (let i = 0; i < BALLOON_COUNT; i++) {
+    setTimeout(createSingleBalloon, i * 600);
+  }
+
+  // ——————————————————————————————————————
+  // 原有密码、音乐、标签逻辑（完全不变）
+  // ——————————————————————————————————————
   const CORRECT_PWD = "DxixD";
   const coverPage = document.getElementById('coverPage');
   const mainContent = document.getElementById('mainContent');
