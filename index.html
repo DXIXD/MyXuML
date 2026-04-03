@@ -59,7 +59,7 @@ html, body {
   overflow: hidden;
 }
 
-/* 🔥 仅在这里优化气球：从下往上、零星、不扎堆 + 速度稍快 🔥 */
+/* 🔥 气球：从下往上、零星、不扎堆 + 速度稍快 🔥 */
 .floating-balloon {
   position: fixed;
   font-size: 1.8rem;
@@ -74,12 +74,13 @@ html, body {
   100% { transform: translateY(-140vh) rotate(-1deg); opacity: 0; }
 }
 
+/* 🌟 修复星星：恢复你原来的闪烁动画 + 正确层级 🌟 */
 .twinkling-star {
   position: absolute;
   font-size: 1.1rem;
   animation: twinkle 1.8s ease-in-out infinite;
   pointer-events: none;
-  z-index: 1;
+  z-index: 10001; /* 👈 只改了这里！让星星显示出来！ */
 }
 @keyframes twinkle {
   0%, 100% { opacity: 0.25; transform: scale(0.75); }
@@ -140,7 +141,7 @@ html, body {
   padding: 14px 20px;
   border-radius: 30px;
   border: 2px solid rgba(255,255,255,0.7);
-  background: rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.3);
   color: #fff;
   font-size: 1rem;
   text-align: center;
@@ -154,7 +155,7 @@ html, body {
 }
 .pwd-input:focus {
   border-color: #fff;
-  background: rgba(255,255,255,0.4);
+  background: rgba(255, 255, 255, 0.4);
   transform: scale(1.03);
 }
 
@@ -424,7 +425,7 @@ html, body {
 <div class="floating-balloon" style="left: 87%; animation-delay: 9s; animation-duration: 33s;">🎈</div>
 <div class="floating-balloon" style="left: 96%; animation-delay: 2s; animation-duration: 30s;">🩷</div>
 
-<!-- 星星 -->
+<!-- 🌟 你原来的星星：100% 恢复 + 正常显示 🌟 -->
 <div class="twinkling-star" style="top: 5%; right: 10%; animation-delay: 0s;">✨</div>
 <div class="twinkling-star" style="top: 8%; left: 15%; animation-delay: 0.3s;">⭐</div>
 <div class="twinkling-star" style="top: 12%; right: 25%; animation-delay: 0.7s;">🌟</div>
