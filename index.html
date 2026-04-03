@@ -24,7 +24,7 @@ html, body {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.8s ease, visibility 0.8s ease;
-  background-image: url('https://images.unsplash.com/photo-1574634525232-5c2371a6c211?q=80&w=1920');
+  background-image: url('https://images.unsplash.com/photo-1574634525252-5c2371a6c211?q=80&w=1920');
   background-size: cover;
   background-position: center 30%;
   background-attachment: fixed;
@@ -59,16 +59,7 @@ html, body {
   overflow: hidden;
 }
 
-/* 🔥 气球基础样式 🔥 */
-.floating-balloon {
-  position: fixed;
-  font-size: 1.8rem;
-  bottom: -80px;
-  pointer-events: none;
-  z-index: 9999999 !important;
-}
-
-/* 🌟 星星：完全保留 🌟 */
+/* 🌟 星星：保留温柔闪烁 🌟 */
 .twinkling-star {
   position: absolute;
   font-size: 1.1rem;
@@ -391,6 +382,15 @@ html, body {
   .photo-card img { height: 190px; }
   .tab-item { font-size: 0.9rem; padding: 10px 4px; }
 }
+
+/* 固定静态气球 不飘 不动 */
+.static-balloon {
+  position: fixed;
+  font-size: 1.6rem;
+  pointer-events: none;
+  z-index: 9999 !important;
+  opacity: 0.85;
+}
 </style>
 </head>
 <body>
@@ -406,10 +406,17 @@ html, body {
   </div>
 </div>
 
-<!-- 气球容器（JS自动生成，真正无限飘） -->
-<div id="balloonContainer"></div>
+<!-- ======================
+  固定气球：不飘、不动画
+======================= -->
+<div class="static-balloon" style="top:10%; left:8%;">🎈</div>
+<div class="static-balloon" style="top:18%; right:12%;">🩷</div>
+<div class="static-balloon" style="top:35%; left:15%;">🎀</div>
+<div class="static-balloon" style="top:60%; right:10%;">🎈</div>
+<div class="static-balloon" style="top:78%; left:22%;">🩷</div>
+<div class="static-balloon" style="top:85%; right:25%;">🎀</div>
 
-<!-- 🌟 星星：100% 保留 🌟 -->
+<!-- 🌟 星星：保留 🌟 -->
 <div class="twinkling-star" style="top: 5%; right: 10%; animation-delay: 0s;">✨</div>
 <div class="twinkling-star" style="top: 8%; left: 15%; animation-delay: 0.3s;">⭐</div>
 <div class="twinkling-star" style="top: 12%; right: 25%; animation-delay: 0.7s;">🌟</div>
@@ -508,54 +515,8 @@ html, body {
 <script>
 (function() {
   // ——————————————————————————————————————
-  // 🔥 真·无限气球系统（永远飘、不断档）
+  // 已彻底删除所有气球动画代码
   // ——————————————————————————————————————
-  const balloonContainer = document.getElementById('balloonContainer');
-  const balloonEmojis = ['🎈', '🩷', '🎀'];
-  const BALLOON_COUNT = 12; // 同时飘的数量
-  const MIN_DURATION = 26;  // 最慢
-  const MAX_DURATION = 36;  // 最快
-
-  function createSingleBalloon() {
-    const b = document.createElement('div');
-    b.className = 'floating-balloon';
-    b.innerText = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
-    
-    // 随机水平位置
-    const left = Math.random() * 94 + 3;
-    b.style.left = left + '%';
-    
-    // 随机速度
-    const dur = MIN_DURATION + Math.random() * (MAX_DURATION - MIN_DURATION);
-    const delay = Math.random() * -10;
-
-    // 动画：从底部飘出 → 消失 → 自动重新创建
-    b.style.animation = `floatUp ${dur}s linear ${delay}s forwards`;
-    
-    const keyframes = `
-      @keyframes floatUp {
-        0% { transform: translateY(0) rotate(-1deg); opacity: 0.7; }
-        50% { transform: translateY(-70vh) rotate(1deg); opacity: 1; }
-        100% { transform: translateY(-140vh) rotate(-1deg); opacity: 0; }
-      }
-    `;
-    const style = document.createElement('style');
-    style.innerHTML = keyframes;
-    document.head.appendChild(style);
-
-    balloonContainer.appendChild(b);
-
-    // 飘完自动销毁并生成新气球 → 无限循环
-    setTimeout(() => {
-      b.remove();
-      createSingleBalloon();
-    }, (dur + delay) * 1000);
-  }
-
-  // 初始化一批气球
-  for (let i = 0; i < BALLOON_COUNT; i++) {
-    setTimeout(createSingleBalloon, i * 600);
-  }
 
   // ——————————————————————————————————————
   // 原有密码、音乐、标签逻辑（完全不变）
