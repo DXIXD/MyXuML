@@ -59,59 +59,37 @@ html, body {
   overflow: hidden;
 }
 
-/* 🌟 星星：保留温柔闪烁 */
+/* 星星动画 */
 .twinkling-star {
   position: fixed;
   font-size: 1.1rem;
   animation: twinkle 1.8s ease-in-out infinite;
   pointer-events: none;
   z-index: 1000;
-  opacity: 0.85;
-  transition: opacity 0.8s ease;
-}
-/* 主页面显示时隐藏星星 */
-.main-content.show ~ .twinkling-star {
-  opacity: 0;
-  pointer-events: none;
 }
 @keyframes twinkle {
   0%, 100% { opacity: 0.25; transform: scale(0.75); }
-  50% { opacity: 1; transform: scale(1.35); }
+  50%  { opacity: 1; transform: scale(1.35); }
 }
 
-/* 🎈 气球：新增温柔呼吸+轻微旋转动画 */
+/* 气球动画 */
 .static-balloon {
   position: fixed;
   font-size: 1.6rem;
   pointer-events: none;
-  z-index: 1000 !important;
-  opacity: 0.85;
-  transition: opacity 0.8s ease;
-  /* 气球专属动画：呼吸+微旋，节奏和星星呼应但更柔和 */
+  z-index: 1000;
   animation: balloonBreath 2.2s ease-in-out infinite;
 }
-/* 每个气球加不同延迟，动效更错落自然 */
 .static-balloon:nth-child(1) { animation-delay: 0s; }
 .static-balloon:nth-child(2) { animation-delay: 0.4s; }
 .static-balloon:nth-child(3) { animation-delay: 0.8s; }
 .static-balloon:nth-child(4) { animation-delay: 0.2s; }
 .static-balloon:nth-child(5) { animation-delay: 0.6s; }
 .static-balloon:nth-child(6) { animation-delay: 1s; }
-/* 主页面显示时隐藏气球 */
-.main-content.show ~ .static-balloon {
-  opacity: 0;
-  pointer-events: none;
-}
-/* 气球动画：呼吸缩放 + 轻微旋转，不飘不移 */
+
 @keyframes balloonBreath {
-  0%, 100% { 
-    transform: scale(0.9) rotate(-2deg); 
-    opacity: 0.75;
-  }
-  50% { 
-    transform: scale(1.1) rotate(2deg); 
-    opacity: 1;
-  }
+  0%, 100% { transform: scale(0.9) rotate(-2deg); opacity: 0.75; }
+  50%      { transform: scale(1.1) rotate(2deg); opacity: 1; }
 }
 
 .cover-page.hide {
@@ -428,8 +406,28 @@ html, body {
 </head>
 <body>
 
-<!-- 粉色密码封面 -->
+<!-- 粉色密码封面 + 内部包含气球、星星 -->
 <div class="cover-page" id="coverPage">
+
+  <!-- 气球：只在封面 -->
+  <div class="static-balloon" style="top:10%; left:8%;">🎈</div>
+  <div class="static-balloon" style="top:18%; right:12%;">🩷</div>
+  <div class="static-balloon" style="top:35%; left:15%;">🎀</div>
+  <div class="static-balloon" style="top:60%; right:10%;">🎈</div>
+  <div class="static-balloon" style="top:78%; left:22%;">🩷</div>
+  <div class="static-balloon" style="top:85%; right:25%;">🎀</div>
+
+  <!-- 星星：只在封面 -->
+  <div class="twinkling-star" style="top: 5%; right: 10%; animation-delay: 0s;">✨</div>
+  <div class="twinkling-star" style="top: 8%; left: 15%; animation-delay: 0.3s;">⭐</div>
+  <div class="twinkling-star" style="top: 12%; right: 25%; animation-delay: 0.7s;">🌟</div>
+  <div class="twinkling-star" style="top: 18%; left: 5%; animation-delay: 0.1s;">✨</div>
+  <div class="twinkling-star" style="top: 22%; right: 5%; animation-delay: 0.9s;">⭐</div>
+  <div class="twinkling-star" style="top: 28%; left: 25%; animation-delay: 0.4s;">🌟</div>
+  <div class="twinkling-star" style="top: 33%; right: 35%; animation-delay: 1.2s;">✨</div>
+  <div class="twinkling-star" style="top: 38%; left: 10%; animation-delay: 0.6s;">⭐</div>
+  <div class="twinkling-star" style="top: 45%; right: 18%; animation-delay: 0.2s;">🌟</div>
+
   <div class="cover-card">
     <h1>致 XuML</h1>
     <p>🌸 请输入爱的密码，开启惊喜 🌸</p>
@@ -438,25 +436,6 @@ html, body {
     <div id="tipText"></div>
   </div>
 </div>
-
-<!-- 气球：带温柔呼吸+微旋动画 -->
-<div class="static-balloon" style="top:10%; left:8%;">🎈</div>
-<div class="static-balloon" style="top:18%; right:12%;">🩷</div>
-<div class="static-balloon" style="top:35%; left:15%;">🎀</div>
-<div class="static-balloon" style="top:60%; right:10%;">🎈</div>
-<div class="static-balloon" style="top:78%; left:22%;">🩷</div>
-<div class="static-balloon" style="top:85%; right:25%;">🎀</div>
-
-<!-- 星星：保留闪烁 -->
-<div class="twinkling-star" style="top: 5%; right: 10%; animation-delay: 0s;">✨</div>
-<div class="twinkling-star" style="top: 8%; left: 15%; animation-delay: 0.3s;">⭐</div>
-<div class="twinkling-star" style="top: 12%; right: 25%; animation-delay: 0.7s;">🌟</div>
-<div class="twinkling-star" style="top: 18%; left: 5%; animation-delay: 0.1s;">✨</div>
-<div class="twinkling-star" style="top: 22%; right: 5%; animation-delay: 0.9s;">⭐</div>
-<div class="twinkling-star" style="top: 28%; left: 25%; animation-delay: 0.4s;">🌟</div>
-<div class="twinkling-star" style="top: 33%; right: 35%; animation-delay: 1.2s;">✨</div>
-<div class="twinkling-star" style="top: 38%; left: 10%; animation-delay: 0.6s;">⭐</div>
-<div class="twinkling-star" style="top: 45%; right: 18%; animation-delay: 0.2s;">🌟</div>
 
 <!-- 主内容 -->
 <div class="main-content" id="mainContent">
@@ -557,7 +536,9 @@ html, body {
     if (val === CORRECT_PWD) {
       tipText.innerText = "✅ 密码正确，爱意解锁成功！";
       tipText.style.color = "#E8F5E8";
+      
       setTimeout(() => {
+        // 封面隐藏，气球星星一起彻底消失
         coverPage.classList.add('hide');
         mainContent.classList.add('show');
         startMusicGracefully();
