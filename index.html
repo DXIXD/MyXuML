@@ -54,18 +54,18 @@ html, body {
   align-items: center;
   justify-content: center;
   color: white;
-  z-index: 10000;
+  z-index: 100; /* 降低封面层级，让气球能显示 */
   transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.8s;
   overflow: hidden;
 }
 
-/* 🌟 星星：保留温柔闪烁 🌟 */
+/* 🌟 星星：保留温柔闪烁，提升层级确保显示 */
 .twinkling-star {
-  position: absolute;
+  position: fixed; /* 改为fixed，确保封面和主页面都能看到 */
   font-size: 1.1rem;
   animation: twinkle 1.8s ease-in-out infinite;
   pointer-events: none;
-  z-index: 10001;
+  z-index: 1000; /* 高于封面，确保显示 */
 }
 @keyframes twinkle {
   0%, 100% { opacity: 0.25; transform: scale(0.75); }
@@ -88,7 +88,7 @@ html, body {
   box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255 0.3) inset;
   width: 85%;
   max-width: 480px;
-  z-index: 10;
+  z-index: 101; /* 卡片层级高于封面，确保输入框可点击 */
   animation: cardGlowPink 2s infinite alternate;
 }
 
@@ -383,12 +383,12 @@ html, body {
   .tab-item { font-size: 0.9rem; padding: 10px 4px; }
 }
 
-/* 固定静态气球 不飘 不动 */
+/* 固定静态气球 不飘 不动，提升层级确保显示 */
 .static-balloon {
   position: fixed;
   font-size: 1.6rem;
   pointer-events: none;
-  z-index: 9999 !important;
+  z-index: 1000 !important; /* 高于封面，确保显示 */
   opacity: 0.85;
 }
 </style>
@@ -398,7 +398,7 @@ html, body {
 <!-- 粉色密码封面 -->
 <div class="cover-page" id="coverPage">
   <div class="cover-card">
-    <h1>DxixD</h1>
+    <h1>致 XuML</h1>
     <p>🌸 请输入爱的密码，开启惊喜 🌸</p>
     <input type="password" class="pwd-input" id="pwdInput" placeholder="请输入密码">
     <button class="unlock-btn" id="unlockBtn">🔓 解锁纪念册</button>
@@ -407,7 +407,7 @@ html, body {
 </div>
 
 <!-- ======================
-  固定气球：不飘、不动画
+  固定气球：不飘、不动画（现在能正常显示）
 ======================= -->
 <div class="static-balloon" style="top:10%; left:8%;">🎈</div>
 <div class="static-balloon" style="top:18%; right:12%;">🩷</div>
