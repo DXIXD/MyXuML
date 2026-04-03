@@ -54,18 +54,26 @@ html, body {
   align-items: center;
   justify-content: center;
   color: white;
-  z-index: 100; /* 降低封面层级，让气球能显示 */
+  z-index: 100;
   transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.8s;
   overflow: hidden;
 }
 
-/* 🌟 星星：保留温柔闪烁，提升层级确保显示 */
+/* 🌟 星星：只在封面显示，主页面隐藏 */
 .twinkling-star {
-  position: fixed; /* 改为fixed，确保封面和主页面都能看到 */
+  position: fixed;
   font-size: 1.1rem;
   animation: twinkle 1.8s ease-in-out infinite;
   pointer-events: none;
-  z-index: 1000; /* 高于封面，确保显示 */
+  z-index: 1000;
+  /* 默认显示，主页面显示时隐藏 */
+  opacity: 0.85;
+  transition: opacity 0.8s ease;
+}
+/* 主页面显示时，隐藏星星 */
+.main-content.show ~ .twinkling-star {
+  opacity: 0;
+  pointer-events: none;
 }
 @keyframes twinkle {
   0%, 100% { opacity: 0.25; transform: scale(0.75); }
@@ -88,7 +96,7 @@ html, body {
   box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255 0.3) inset;
   width: 85%;
   max-width: 480px;
-  z-index: 101; /* 卡片层级高于封面，确保输入框可点击 */
+  z-index: 101;
   animation: cardGlowPink 2s infinite alternate;
 }
 
@@ -383,13 +391,19 @@ html, body {
   .tab-item { font-size: 0.9rem; padding: 10px 4px; }
 }
 
-/* 固定静态气球 不飘 不动，提升层级确保显示 */
+/* 固定静态气球：只在封面显示，主页面隐藏 */
 .static-balloon {
   position: fixed;
   font-size: 1.6rem;
   pointer-events: none;
-  z-index: 1000 !important; /* 高于封面，确保显示 */
+  z-index: 1000 !important;
   opacity: 0.85;
+  transition: opacity 0.8s ease; /* 加过渡动画，隐藏更丝滑 */
+}
+/* 主页面显示时，隐藏气球 */
+.main-content.show ~ .static-balloon {
+  opacity: 0;
+  pointer-events: none;
 }
 </style>
 </head>
@@ -406,9 +420,7 @@ html, body {
   </div>
 </div>
 
-<!-- ======================
-  固定气球：不飘、不动画（现在能正常显示）
-======================= -->
+<!-- 固定气球：只在封面显示 -->
 <div class="static-balloon" style="top:10%; left:8%;">🎈</div>
 <div class="static-balloon" style="top:18%; right:12%;">🩷</div>
 <div class="static-balloon" style="top:35%; left:15%;">🎀</div>
@@ -416,7 +428,7 @@ html, body {
 <div class="static-balloon" style="top:78%; left:22%;">🩷</div>
 <div class="static-balloon" style="top:85%; right:25%;">🎀</div>
 
-<!-- 🌟 星星：保留 🌟 -->
+<!-- 星星：只在封面显示 -->
 <div class="twinkling-star" style="top: 5%; right: 10%; animation-delay: 0s;">✨</div>
 <div class="twinkling-star" style="top: 8%; left: 15%; animation-delay: 0.3s;">⭐</div>
 <div class="twinkling-star" style="top: 12%; right: 25%; animation-delay: 0.7s;">🌟</div>
@@ -500,7 +512,7 @@ html, body {
 —— 我爱你，不止今天。
 
 永远爱你的人
-          <span style="display:inline-block; margin-top: 12px;">🎂 2026年 · 生日当天 🎂</span>
+          <span style="display:inline-block; margin-top: 12px;">🎂 ${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 · 永远爱你 🎂</span>
         </div>
       </div>
     </div>
@@ -514,13 +526,6 @@ html, body {
 
 <script>
 (function() {
-  // ——————————————————————————————————————
-  // 已彻底删除所有气球动画代码
-  // ——————————————————————————————————————
-
-  // ——————————————————————————————————————
-  // 原有密码、音乐、标签逻辑（完全不变）
-  // ——————————————————————————————————————
   const CORRECT_PWD = "DxixD";
   const coverPage = document.getElementById('coverPage');
   const mainContent = document.getElementById('mainContent');
