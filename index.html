@@ -59,7 +59,7 @@ html, body {
   overflow: hidden;
 }
 
-/* 🔥 气球：从下往上、零星、不扎堆 + 速度稍快 🔥 */
+/* 🔥 气球：不间断无限飘 + 速度自然分布 + 不扎堆 🔥 */
 .floating-balloon {
   position: fixed;
   font-size: 1.8rem;
@@ -74,13 +74,13 @@ html, body {
   100% { transform: translateY(-140vh) rotate(-1deg); opacity: 0; }
 }
 
-/* 🌟 修复星星：恢复你原来的闪烁动画 + 正确层级 🌟 */
+/* 🌟 你原来的星星：100% 保留 + 正常闪烁 🌟 */
 .twinkling-star {
   position: absolute;
   font-size: 1.1rem;
   animation: twinkle 1.8s ease-in-out infinite;
   pointer-events: none;
-  z-index: 10001; /* 👈 只改了这里！让星星显示出来！ */
+  z-index: 10001;
 }
 @keyframes twinkle {
   0%, 100% { opacity: 0.25; transform: scale(0.75); }
@@ -412,20 +412,20 @@ html, body {
   </div>
 </div>
 
-<!-- 🔥 气球：从下往上、零星分散、不扎堆、最上层 🔥 -->
-<div class="floating-balloon" style="left: 6%; animation-delay: 0s; animation-duration: 32s;">🎈</div>
-<div class="floating-balloon" style="left: 15%; animation-delay: 5s; animation-duration: 36s;">🩷</div>
-<div class="floating-balloon" style="left: 24%; animation-delay: 2s; animation-duration: 30s;">🎀</div>
-<div class="floating-balloon" style="left: 33%; animation-delay: 7s; animation-duration: 34s;">🎈</div>
-<div class="floating-balloon" style="left: 42%; animation-delay: 1s; animation-duration: 28s;">🩷</div>
-<div class="floating-balloon" style="left: 51%; animation-delay: 6s; animation-duration: 37s;">🎀</div>
-<div class="floating-balloon" style="left: 60%; animation-delay: 3s; animation-duration: 31s;">🎈</div>
-<div class="floating-balloon" style="left: 69%; animation-delay: 8s; animation-duration: 35s;">🩷</div>
-<div class="floating-balloon" style="left: 78%; animation-delay: 4s; animation-duration: 29s;">🎀</div>
-<div class="floating-balloon" style="left: 87%; animation-delay: 9s; animation-duration: 33s;">🎈</div>
-<div class="floating-balloon" style="left: 96%; animation-delay: 2s; animation-duration: 30s;">🩷</div>
+<!-- 🔥 完美气球：不间断飘 + 速度分布自然 + 不扎堆 🔥 -->
+<div class="floating-balloon" style="left:5%; animation-delay:-2s; animation-duration:28s;">🎈</div>
+<div class="floating-balloon" style="left:13%; animation-delay:-5s; animation-duration:31s;">🩷</div>
+<div class="floating-balloon" style="left:22%; animation-delay:-1s; animation-duration:26s;">🎀</div>
+<div class="floating-balloon" style="left:31%; animation-delay:-7s; animation-duration:33s;">🎈</div>
+<div class="floating-balloon" style="left:40%; animation-delay:-3s; animation-duration:29s;">🩷</div>
+<div class="floating-balloon" style="left:49%; animation-delay:-8s; animation-duration:35s;">🎀</div>
+<div class="floating-balloon" style="left:58%; animation-delay:-4s; animation-duration:27s;">🎈</div>
+<div class="floating-balloon" style="left:67%; animation-delay:-6s; animation-duration:32s;">🩷</div>
+<div class="floating-balloon" style="left:76%; animation-delay:-2s; animation-duration:30s;">🎀</div>
+<div class="floating-balloon" style="left:85%; animation-delay:-9s; animation-duration:34s;">🎈</div>
+<div class="floating-balloon" style="left:94%; animation-delay:-4s; animation-duration:28s;">🩷</div>
 
-<!-- 🌟 你原来的星星：100% 恢复 + 正常显示 🌟 -->
+<!-- 🌟 你原来的星星：100% 保留 🌟 -->
 <div class="twinkling-star" style="top: 5%; right: 10%; animation-delay: 0s;">✨</div>
 <div class="twinkling-star" style="top: 8%; left: 15%; animation-delay: 0.3s;">⭐</div>
 <div class="twinkling-star" style="top: 12%; right: 25%; animation-delay: 0.7s;">🌟</div>
