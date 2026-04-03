@@ -82,48 +82,41 @@ html, body {
   100% { transform: translateY(-100px) rotate(5deg); }
 }
 
-/* 飘浮的气球元素 */
+/* 🔥 气球：从下往上飘，慢慢消失 🔥 */
 .floating-balloon {
   position: absolute;
-  font-size: 2.5rem;
-  animation: floatBalloon 8s ease-in-out infinite;
+  font-size: 2.2rem;
+  bottom: -80px; /* 从屏幕底部外开始 */
+  animation: floatBalloonUp 25s linear infinite;
   pointer-events: none;
   z-index: 1;
 }
-
-@keyframes floatBalloon {
-  0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
-  50% { transform: translateY(-30px) rotate(5deg); opacity: 1; }
-  100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+@keyframes floatBalloonUp {
+  0% {
+    transform: translateY(0) rotate(-2deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-50vh) rotate(2deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh) rotate(-2deg);
+    opacity: 0; /* 慢慢消失 */
+  }
 }
 
-/* 飘浮的爱心 */
-.floating-heart {
-  position: absolute;
-  font-size: 1.8rem;
-  animation: floatHeart 6s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 1;
-}
-
-@keyframes floatHeart {
-  0% { transform: translateY(0) scale(1); opacity: 0.6; }
-  50% { transform: translateY(-25px) scale(1.2); opacity: 1; }
-  100% { transform: translateY(0) scale(1); opacity: 0.6; }
-}
-
-/* 星星闪烁 */
+/* 星星闪烁 —— 增强版 */
 .twinkling-star {
   position: absolute;
-  font-size: 1.2rem;
-  animation: twinkle 2s ease-in-out infinite;
+  font-size: 1.1rem;
+  animation: twinkle 1.8s ease-in-out infinite;
   pointer-events: none;
   z-index: 1;
 }
-
 @keyframes twinkle {
-  0%, 100% { opacity: 0.3; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.2); }
+  0%, 100% { opacity: 0.25; transform: scale(0.75); }
+  50% { opacity: 1; transform: scale(1.35); }
 }
 
 .cover-page.hide {
@@ -139,7 +132,7 @@ html, body {
   backdrop-filter: blur(20px);
   border-radius: 64px;
   border: 2px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255 0.3) inset;
   width: 85%;
   max-width: 480px;
   z-index: 10;
@@ -448,32 +441,75 @@ html, body {
 
 <!-- 粉色主题密码封面 -->
 <div class="cover-page" id="coverPage">
-  <!-- 动态飘浮气球 -->
-  <div class="floating-balloon" style="top: 12%; left: 8%; animation-delay: 0s;">🎈</div>
-  <div class="floating-balloon" style="top: 20%; right: 12%; animation-delay: 1s;">🎈</div>
-  <div class="floating-balloon" style="bottom: 18%; left: 15%; animation-delay: 2s;">🎈</div>
-  <div class="floating-balloon" style="bottom: 25%; right: 20%; animation-delay: 0.5s;">🎈</div>
-  
-  <!-- 飘浮爱心 -->
-  <div class="floating-heart" style="top: 15%; left: 20%; animation-delay: 0.3s;">❤️</div>
-  <div class="floating-heart" style="top: 30%; right: 18%; animation-delay: 1.2s;">💖</div>
-  <div class="floating-heart" style="bottom: 30%; left: 25%; animation-delay: 0.8s;">💗</div>
-  <div class="floating-heart" style="bottom: 20%; right: 28%; animation-delay: 1.5s;">💕</div>
-  <div class="floating-heart" style="top: 45%; left: 5%; animation-delay: 0.5s;">💓</div>
-  <div class="floating-heart" style="top: 55%; right: 8%; animation-delay: 1.8s;">💝</div>
-  
-  <!-- 闪烁星星 -->
-  <div class="twinkling-star" style="top: 8%; right: 25%; animation-delay: 0s;">✨</div>
-  <div class="twinkling-star" style="top: 22%; left: 35%; animation-delay: 0.7s;">⭐</div>
-  <div class="twinkling-star" style="bottom: 15%; right: 40%; animation-delay: 1.2s;">🌟</div>
-  <div class="twinkling-star" style="top: 65%; left: 12%; animation-delay: 0.4s;">✨</div>
-  <div class="twinkling-star" style="bottom: 40%; left: 45%; animation-delay: 0.9s;">⭐</div>
-  <div class="twinkling-star" style="top: 75%; right: 22%; animation-delay: 1.5s;">🌟</div>
-  
+
+  <!-- ====================== ✨ 超多分散气球：从下往上缓慢飘升消失 ✨ ====================== -->
+  <div class="floating-balloon" style="left: 2%; animation-delay: 0s; animation-duration: 32s;">🎈</div>
+  <div class="floating-balloon" style="left: 6%; animation-delay: 3s; animation-duration: 38s;">🩷</div>
+  <div class="floating-balloon" style="left: 10%; animation-delay: 1s; animation-duration: 29s;">🎀</div>
+  <div class="floating-balloon" style="left: 15%; animation-delay: 5s; animation-duration: 35s;">🎈</div>
+  <div class="floating-balloon" style="left: 20%; animation-delay: 2s; animation-duration: 40s;">🩷</div>
+  <div class="floating-balloon" style="left: 25%; animation-delay: 7s; animation-duration: 31s;">🎀</div>
+  <div class="floating-balloon" style="left: 30%; animation-delay: 0s; animation-duration: 36s;">🎈</div>
+  <div class="floating-balloon" style="left: 35%; animation-delay: 4s; animation-duration: 33s;">🩷</div>
+  <div class="floating-balloon" style="left: 40%; animation-delay: 8s; animation-duration: 28s;">🎀</div>
+  <div class="floating-balloon" style="left: 45%; animation-delay: 2s; animation-duration: 39s;">🎈</div>
+  <div class="floating-balloon" style="left: 55%; animation-delay: 6s; animation-duration: 34s;">🩷</div>
+  <div class="floating-balloon" style="left: 60%; animation-delay: 1s; animation-duration: 30s;">🎀</div>
+  <div class="floating-balloon" style="left: 65%; animation-delay: 9s; animation-duration: 37s;">🎈</div>
+  <div class="floating-balloon" style="left: 70%; animation-delay: 3s; animation-duration: 27s;">🩷</div>
+  <div class="floating-balloon" style="left: 75%; animation-delay: 0s; animation-duration: 41s;">🎀</div>
+  <div class="floating-balloon" style="left: 80%; animation-delay: 5s; animation-duration: 32s;">🎈</div>
+  <div class="floating-balloon" style="left: 85%; animation-delay: 7s; animation-duration: 29s;">🩷</div>
+  <div class="floating-balloon" style="left: 90%; animation-delay: 2s; animation-duration: 35s;">🎀</div>
+  <div class="floating-balloon" style="left: 94%; animation-delay: 4s; animation-duration: 38s;">🎈</div>
+  <div class="floating-balloon" style="left: 98%; animation-delay: 6s; animation-duration: 33s;">🩷</div>
+  <div class="floating-balloon" style="left: 3%; animation-delay: 8s; animation-duration: 26s;">🎀</div>
+  <div class="floating-balloon" style="left: 8%; animation-delay: 1s; animation-duration: 40s;">🎈</div>
+  <div class="floating-balloon" style="left: 13%; animation-delay: 9s; animation-duration: 31s;">🩷</div>
+  <div class="floating-balloon" style="left: 18%; animation-delay: 0s; animation-duration: 36s;">🎀</div>
+  <div class="floating-balloon" style="left: 23%; animation-delay: 5s; animation-duration: 28s;">🎈</div>
+  <div class="floating-balloon" style="left: 28%; animation-delay: 3s; animation-duration: 39s;">🩷</div>
+  <div class="floating-balloon" style="left: 33%; animation-delay: 7s; animation-duration: 34s;">🎀</div>
+  <div class="floating-balloon" style="left: 38%; animation-delay: 2s; animation-duration: 30s;">🎈</div>
+  <div class="floating-balloon" style="left: 43%; animation-delay: 6s; animation-duration: 37s;">🩷</div>
+  <div class="floating-balloon" style="left: 48%; animation-delay: 0s; animation-duration: 27s;">🎀</div>
+  <div class="floating-balloon" style="left: 53%; animation-delay: 4s; animation-duration: 41s;">🎈</div>
+  <div class="floating-balloon" style="left: 58%; animation-delay: 8s; animation-duration: 32s;">🩷</div>
+  <div class="floating-balloon" style="left: 63%; animation-delay: 1s; animation-duration: 29s;">🎀</div>
+  <div class="floating-balloon" style="left: 68%; animation-delay: 9s; animation-duration: 35s;">🎈</div>
+  <div class="floating-balloon" style="left: 73%; animation-delay: 3s; animation-duration: 38s;">🩷</div>
+  <div class="floating-balloon" style="left: 78%; animation-delay: 0s; animation-duration: 33s;">🎀</div>
+  <div class="floating-balloon" style="left: 83%; animation-delay: 5s; animation-duration: 26s;">🎈</div>
+  <div class="floating-balloon" style="left: 88%; animation-delay: 7s; animation-duration: 40s;">🩷</div>
+  <div class="floating-balloon" style="left: 93%; animation-delay: 2s; animation-duration: 31s;">🎀</div>
+  <div class="floating-balloon" style="left: 97%; animation-delay: 6s; animation-duration: 36s;">🎈</div>
+
+  <!-- ✨ 星星闪烁 ✨ -->
+  <div class="twinkling-star" style="top: 5%; right: 10%; animation-delay: 0s;">✨</div>
+  <div class="twinkling-star" style="top: 8%; left: 15%; animation-delay: 0.3s;">⭐</div>
+  <div class="twinkling-star" style="top: 12%; right: 25%; animation-delay: 0.7s;">🌟</div>
+  <div class="twinkling-star" style="top: 18%; left: 5%; animation-delay: 0.1s;">✨</div>
+  <div class="twinkling-star" style="top: 22%; right: 5%; animation-delay: 0.9s;">⭐</div>
+  <div class="twinkling-star" style="top: 28%; left: 25%; animation-delay: 0.4s;">🌟</div>
+  <div class="twinkling-star" style="top: 33%; right: 35%; animation-delay: 1.2s;">✨</div>
+  <div class="twinkling-star" style="top: 38%; left: 10%; animation-delay: 0.6s;">⭐</div>
+  <div class="twinkling-star" style="top: 45%; right: 18%; animation-delay: 0.2s;">🌟</div>
+  <div class="twinkling-star" style="top: 50%; left: 30%; animation-delay: 1s;">✨</div>
+  <div class="twinkling-star" style="top: 58%; right: 8%; animation-delay: 0.5s;">⭐</div>
+  <div class="twinkling-star" style="top: 65%; left: 18%; animation-delay: 1.3s;">🌟</div>
+  <div class="twinkling-star" style="bottom: 5%; left: 12%; animation-delay: 0.3s;">✨</div>
+  <div class="twinkling-star" style="bottom: 10%; right: 22%; animation-delay: 0.8s;">⭐</div>
+  <div class="twinkling-star" style="bottom: 15%; left: 35%; animation-delay: 0.1s;">🌟</div>
+  <div class="twinkling-star" style="bottom: 22%; right: 10%; animation-delay: 1.1s;">✨</div>
+  <div class="twinkling-star" style="bottom: 28%; left: 5%; animation-delay: 0.4s;">⭐</div>
+  <div class="twinkling-star" style="bottom: 35%; right: 30%; animation-delay: 0.9s;">🌟</div>
+  <div class="twinkling-star" style="bottom: 42%; left: 22%; animation-delay: 0.6s;">✨</div>
+  <div class="twinkling-star" style="bottom: 50%; right: 15%; animation-delay: 0.2s;">⭐</div>
+
   <div class="cover-card">
     <h1>致 XuML</h1>
     <p>🌸 请输入爱的密码，开启惊喜 🌸</p>
-    
+
     <!-- 密码输入框 -->
     <input type="password" class="pwd-input" id="pwdInput" placeholder="请输入密码">
     <button class="unlock-btn" id="unlockBtn">🔓 解锁纪念册</button>
@@ -490,9 +526,9 @@ html, body {
 
   <div class="tab-wrap">
     <div class="tab-list">
-      <div class="tab-item active" data-target="a">🏠 首页祝福</div>
-      <div class="tab-item" data-target="b">📸 时光照片</div>
-      <div class="tab-item" data-target="c">✉️ 手写信</div>
+      <div class="tab-item active" data-target="a">首页祝福</div>
+      <div class="tab-item" data-target="b">时光照片</div>
+      <div class="tab-item" data-target="c">手写信</div>
     </div>
   </div>
 
@@ -575,7 +611,7 @@ html, body {
   const pwdInput = document.getElementById('pwdInput');
   const unlockBtn = document.getElementById('unlockBtn');
   const tipText = document.getElementById('tipText');
-  
+
   // 解锁函数
   function tryUnlock() {
     const val = pwdInput.value.trim();
@@ -594,28 +630,28 @@ html, body {
       pwdInput.focus();
     }
   }
-  
+
   // 点击按钮解锁
   unlockBtn.addEventListener('click', tryUnlock);
-  
+
   // 回车解锁
   pwdInput.addEventListener('keyup', (e) => {
     if (e.key === 'Enter') tryUnlock();
   });
-  
+
   // ========== 背景音乐播放修复 ==========
   const audio = document.getElementById('bgMusic');
-  
+
   const musicSources = [
     "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
     "https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c6f0f5a2.mp3?filename=happy-birthday-127224.mp3",
     "https://assets.mixkit.co/sfx/preview/mixkit-happy-birthday-song-135749.mp3"
   ];
-  
+
   let currentSourceIndex = 0;
   let isMusicStarted = false;
   let fadeInterval = null;
-  
+
   function tryNextMusicSource() {
     if (currentSourceIndex >= musicSources.length) {
       return false;
@@ -624,15 +660,15 @@ html, body {
     currentSourceIndex++;
     return true;
   }
-  
+
   audio.addEventListener('error', function() {
     if (tryNextMusicSource()) {
       audio.load();
     }
   });
-  
+
   tryNextMusicSource();
-  
+
   function startMusicGracefully() {
     if (isMusicStarted) return;
     isMusicStarted = true;
@@ -656,20 +692,20 @@ html, body {
       });
     }
   }
-  
+
   document.body.addEventListener('click', function onAnyClick() {
     if (mainContent.classList.contains('show') && !isMusicStarted) {
       startMusicGracefully();
       document.body.removeEventListener('click', onAnyClick);
     }
   });
-  
+
   audio.loop = true;
-  
+
   // ========== Tab 切换 ==========
   const tabs = document.querySelectorAll('.tab-item');
   const panels = document.querySelectorAll('.panel');
-  
+
   function switchTab(targetId) {
     tabs.forEach(tab => {
       const tabTarget = tab.getAttribute('data-target');
@@ -687,14 +723,14 @@ html, body {
       }
     });
   }
-  
+
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const target = tab.getAttribute('data-target');
       if (target) switchTab(target);
     });
   });
-  
+
   // ========== 爱心涟漪彩蛋 ==========
   const letterPanel = document.querySelector('#c .letter');
   if (letterPanel) {
@@ -703,7 +739,7 @@ html, body {
       ripple.innerText = '❤️';
       ripple.style.position = 'absolute';
       ripple.style.fontSize = '1.4rem';
-      ripple.style.pointerEvents = none;
+      ripple.style.pointerEvents = 'none';
       ripple.style.opacity = '0.8';
       ripple.style.transform = 'translate(-50%, -50%) scale(0.5)';
       ripple.style.transition = 'all 0.6s ease-out';
@@ -721,7 +757,7 @@ html, body {
       setTimeout(() => ripple.remove(), 600);
     });
   }
-  
+
   // ========== 照片优化 ==========
   const photoImgs = document.querySelectorAll('.photo-card img');
   const customImgUrls = [
@@ -736,20 +772,20 @@ html, body {
       img.loading = "lazy";
     }
   });
-  
+
   document.querySelectorAll('.photo-card img').forEach(img => {
     img.addEventListener('error', function() {
       this.src = "https://picsum.photos/id/20/600/400";
     });
   });
-  
+
   // ========== 动态日期 ==========
   const letterDateSpan = document.querySelector('#c .letter-content span');
   if (letterDateSpan) {
     const now = new Date();
     letterDateSpan.innerText = `🎂 ${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 · 永远爱你 🎂`;
   }
-  
+
   // ========== 首页装饰 ==========
   const welcomePanel = document.querySelector('#a .welcome');
   if (welcomePanel) {
@@ -760,7 +796,7 @@ html, body {
     heartSpan.innerHTML = '🌸 今日所有美好都属于 XuML 🌸';
     welcomePanel.appendChild(heartSpan);
   }
-  
+
   const style = document.createElement('style');
   style.textContent = `
     .photo-card img { transition: transform 0.35s ease; }
